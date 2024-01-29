@@ -67,22 +67,22 @@ const TourDetails = () => {
                     </span>
 
                     <span>
-                      <i class="ri-map-pin-user-fill"></i> {address}
+                      <i className="ri-map-pin-user-fill"></i> {address}
                     </span>
                   </div>
-                  <div class="tour__extra-details">
+                  <div className="tour__extra-details">
                     <span>
-                      <i class="ri-map-pin-2-line"></i> {city}
+                      <i className="ri-map-pin-2-line"></i> {city}
                     </span>
                     <span>
-                      <i class="ri-money-dollar-circle-line"></i> ${price} /per
-                      person
+                      <i className="ri-money-dollar-circle-line"></i> ${price}{" "}
+                      /per person
                     </span>
                     <span>
-                      <i class="ri-map-pin-time-line"></i> {distance} k/m
+                      <i className="ri-map-pin-time-line"></i> {distance} Km
                     </span>
                     <span>
-                      <i class="ri-group-line"></i> {maxGroupSize} people
+                      <i className="ri-group-line"></i> {maxGroupSize} people
                     </span>
                   </div>
                   <h5>Decription</h5>
@@ -132,7 +132,7 @@ const TourDetails = () => {
                         <div className="w-100">
                           <div className="d-flex align-items-center justify-content-between">
                             <div>
-                              <h5>Sadiki</h5>
+                              <h5>Christophe</h5>
                               <p>
                                 {new Date("01-14-2024").toLocaleDateString(
                                   "en-US",
@@ -144,7 +144,7 @@ const TourDetails = () => {
                               5<i className="ri-star-s-fill"></i>
                             </span>
                           </div>
-                          <h6>Amezing tour</h6>
+                          <h6>Amazing tour</h6>
                         </div>
                       </div>
                     ))}
