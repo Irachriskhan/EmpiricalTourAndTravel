@@ -1,7 +1,7 @@
-import Booking from "../models/Booking.js";
+const Booking = require("../models/Bookings.js");
 
 // create new booking
-export const createBooking = async (req, res) => {
+const createBooking = async (req, res) => {
   const newBooking = new Booking(req.body);
   try {
     const savedBooking = await newBooking.save();
@@ -19,7 +19,7 @@ export const createBooking = async (req, res) => {
 };
 
 // get single booking
-export const getBooking = async (req, res) => {
+const getBooking = async (req, res) => {
   const id = req.params.id;
 
   try {
@@ -39,7 +39,7 @@ export const getBooking = async (req, res) => {
 };
 
 // get all booking
-export const getAllBooking = async (req, res) => {
+const getAllBooking = async (req, res) => {
   try {
     const books = await Booking.find();
 
@@ -55,3 +55,5 @@ export const getAllBooking = async (req, res) => {
     });
   }
 };
+
+module.exports = { createBooking, getBooking, getAllBooking };

@@ -1,7 +1,7 @@
-import User from "../models/User.js";
+const User = require("../models/User.js");
 
 // create new User
-export const createUser = async (req, res) => {
+const createUser = async (req, res) => {
   const newUser = new User(req.body);
 
   try {
@@ -21,7 +21,7 @@ export const createUser = async (req, res) => {
 };
 
 // update User
-export const updateUser = async (req, res) => {
+const updateUser = async (req, res) => {
   const id = req.params.id;
 
   try {
@@ -44,7 +44,7 @@ export const updateUser = async (req, res) => {
 };
 
 // delete User
-export const deleteUser = async (req, res) => {
+const deleteUser = async (req, res) => {
   const id = req.params.id;
 
   try {
@@ -60,7 +60,7 @@ export const deleteUser = async (req, res) => {
 };
 
 // getSingle User
-export const getSingleUser = async (req, res) => {
+const getSingleUser = async (req, res) => {
   const id = req.params.id;
 
   try {
@@ -77,7 +77,7 @@ export const getSingleUser = async (req, res) => {
 };
 
 // getAll User
-export const getAllUser = async (req, res) => {
+const getAllUser = async (req, res) => {
   try {
     const users = await User.find({});
 
@@ -89,4 +89,12 @@ export const getAllUser = async (req, res) => {
   } catch (err) {
     res.status(404).json({ success: false, message: "not found" });
   }
+};
+
+module.exports = {
+  deleteUser,
+  getSingleUser,
+  getAllUser,
+  updateUser,
+  updateUser,
 };

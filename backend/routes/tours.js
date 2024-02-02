@@ -1,5 +1,5 @@
-import express from "express";
-import {
+const express = require("express");
+const {
   createTour,
   updateTour,
   deleteTour,
@@ -8,8 +8,8 @@ import {
   getTourBySearch,
   getFeaturedTour,
   getTourCount,
-} from "../controllers/tourController.js";
-import { verifyAdmin } from "../utils/verifyToken.js";
+} = require("../controllers/tourController.js");
+const { verifyAdmin } = require("../utils/verifyToken.js");
 
 const router = express.Router();
 
@@ -33,4 +33,4 @@ router.get("/search/getTourBySearch", getTourBySearch);
 router.get("/search/getFeaturedTours", getFeaturedTour);
 router.get("/search/getTourCount", getTourCount);
 
-export default router;
+module.exports = router;

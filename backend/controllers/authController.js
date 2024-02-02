@@ -1,9 +1,9 @@
-import User from "../models/User.js";
-import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
+const User = require("../models/User.js");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 // user registration
-export const register = async (req, res) => {
+const register = async (req, res) => {
   try {
     //hashing password
     const salt = bcrypt.genSaltSync(10);
@@ -18,16 +18,18 @@ export const register = async (req, res) => {
 
     await newUser.save();
 
-    res.status(200).json({ success: true, message: "successfully created" });
+    res
+      .status(200)
+      .json({ success: true, message: "User successfully created" });
   } catch (err) {
     res
       .status(500)
-      .json({ success: false, message: "failed to create! Try aigain" });
+      .json({ success: false, message: "Failed to create User! Try aigain" });
   }
 };
 
 // user login
-export const login = async (req, res) => {
+const login = async (req, res) => {
   const email = req.body.email;
 
   try {
@@ -74,3 +76,5 @@ export const login = async (req, res) => {
     res.status(500).json({ success: false, message: "Failed to login" });
   }
 };
+
+module.exports = { register, login };
