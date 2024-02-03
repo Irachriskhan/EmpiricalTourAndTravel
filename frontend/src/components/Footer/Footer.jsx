@@ -1,26 +1,27 @@
 import React from "react";
 import "./footer.css";
-import { Container, Row, Col, ListGroup, ListGroupItem } from "reactstrap";
-import { Link } from "react-router-dom";
 
+import { Container, Row, Col, ListGroup, ListGroupItem } from "reactstrap";
+
+import { Link } from "react-router-dom";
 import logo from "../../assets/images/logo.png";
 
-const quick_links = [
+const quick__links = [
   {
-    path: "/home",
-    display: "Home",
+    path: "/gallery",
+    display: "Gallery",
   },
   {
-    path: "/about",
-    display: "About",
+    path: "/login",
+    display: "Login",
   },
   {
-    path: "/tours",
-    display: "Tours",
+    path: "/register",
+    display: "Register",
   },
 ];
 
-const quick_links2 = [
+const quick__links2 = [
   {
     path: "/gallery",
     display: "Gallery",
@@ -37,35 +38,38 @@ const quick_links2 = [
 
 const Footer = () => {
   const year = new Date().getFullYear();
+
   return (
     <footer className="footer">
       <Container>
         <Row>
           <Col lg="3">
             <div className="logo">
-              {" "}
-              {/*style={{ background: "green" }}*/}
               <img src={logo} alt="" />
-              <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
+              <p>
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                Incidunt, eaque.
+              </p>
+
               <div className="social__links d-flex align-items-center gap-4">
                 <span>
                   <Link to="#">
-                    <i className="ri-youtube-line"></i>
+                    <i class="ri-youtube-line"></i>
                   </Link>
                 </span>
                 <span>
                   <Link to="#">
-                    <i className="ri-facebook-fill"></i>
+                    <i class="ri-github-fill"></i>
                   </Link>
                 </span>
                 <span>
                   <Link to="#">
-                    <i className="ri-instagram-line"></i>
+                    <i class="ri-facebook-circle-line"></i>
                   </Link>
                 </span>
                 <span>
                   <Link to="#">
-                    <i className="ri-linkedin-fill"></i>
+                    <i class="ri-instagram-line"></i>
                   </Link>
                 </span>
               </div>
@@ -76,7 +80,7 @@ const Footer = () => {
             <h5 className="footer__link-title">Discover</h5>
 
             <ListGroup className="footer__quick-links">
-              {quick_links.map((item, index) => (
+              {quick__links.map((item, index) => (
                 <ListGroupItem key={index} className="ps-0 border-0">
                   <Link to={item.path}>{item.display}</Link>
                 </ListGroupItem>
@@ -87,7 +91,7 @@ const Footer = () => {
             <h5 className="footer__link-title">Quick Links</h5>
 
             <ListGroup className="footer__quick-links">
-              {quick_links2.map((item, index) => (
+              {quick__links2.map((item, index) => (
                 <ListGroupItem key={index} className="ps-0 border-0">
                   <Link to={item.path}>{item.display}</Link>
                 </ListGroupItem>
@@ -98,39 +102,45 @@ const Footer = () => {
             <h5 className="footer__link-title">Contact</h5>
 
             <ListGroup className="footer__quick-links">
-              <ListGroupItem className="ps-0 border-0 d-flex align-items-center gap3">
+              <ListGroupItem className="ps-0 border-0 d-flex align-items-center gap-3">
                 <h6 className="mb-0 d-flex align-items-center gap-2">
                   <span>
-                    <i className="ri-map-pin-line"></i>
+                    <i class="ri-map-pin-line"></i>
                   </span>
                   Address:
                 </h6>
-                <p className="mb-0"> Kigali, Rwanda</p>
+
+                <p className="mb-0">Kigali, Rwanda</p>
               </ListGroupItem>
-              <ListGroupItem className="ps-0 border-0 d-flex align-items-center gap3">
+
+              <ListGroupItem className="ps-0 border-0 d-flex align-items-center gap-3">
                 <h6 className="mb-0 d-flex align-items-center gap-2">
                   <span>
-                    <i className="ri-mail-line"></i>
+                    <i class="ri-mail-line"></i>
                   </span>
                   Email:
                 </h6>
-                <p className="mb-0"> empiricaltourandtravel@gmail.com</p>
+
+                <p className="mb-0">felicienmukesharugamba@gmail.com</p>
               </ListGroupItem>
-              <ListGroupItem className="ps-0 border-0 d-flex align-items-center gap3">
+
+              <ListGroupItem className="ps-0 border-0 d-flex align-items-center gap-3">
                 <h6 className="mb-0 d-flex align-items-center gap-2">
                   <span>
-                    <i className="ri-phone-fill"></i>
+                    <i class="ri-phone-fill"></i>
                   </span>
                   Phone:
                 </h6>
-                <p className="mb-0">+250781234567</p>
+
+                <p className="mb-0">+250784340197</p>
               </ListGroupItem>
             </ListGroup>
           </Col>
+
           <Col lg="12" className="text-center pt-5">
             <p className="copyright">
-              Copyright &copy;{year}, designed and developed by BiT. All rights
-              reserved.
+              Copyright {year}, designed and developed by Christophe Ir. All
+              right reserved.
             </p>
           </Col>
         </Row>

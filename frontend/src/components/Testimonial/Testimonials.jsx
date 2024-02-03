@@ -1,6 +1,5 @@
 import React from "react";
 import Slider from "react-slick";
-
 import ava01 from "../../assets/images/ava-1.jpg";
 import ava02 from "../../assets/images/ava-2.jpg";
 import ava03 from "../../assets/images/ava-3.jpg";
@@ -11,8 +10,10 @@ const Testimonials = () => {
     infinite: true,
     autoplay: true,
     speed: 1000,
-    swipeToSlide: 2000,
+    swipeToSlide: true,
+    autoplaySpeed: 2000,
     slidesToShow: 3,
+
     responsive: [
       {
         breakpoint: 992,
@@ -37,60 +38,101 @@ const Testimonials = () => {
     <Slider {...settings}>
       <div className="testimonial py-4 px-3">
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum corrupti
-          molestias aspernatur, quaerat at repellat error accusantium delectus
-          omnis sunt. Voluptate hic itaque provident quidem eos libero ullam
-          quam laboriosam?
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae
+          qui reiciendis inventore autem eaque tempore placeat non itaque
+          possimus perspiciatis rerum aut iusto ipsa a hic blanditiis delectus,
+          corrupti architecto.
         </p>
+
         <div className="d-flex align-items-center gap-4 mt-3">
-          <img src={ava01} alt="" className="w-25 h-25 rounded-2" />
+          <img src={ava01} className="w-25 h-25 rounded-2" alt="" />
           <div>
-            <h6 className="mt-3 mb-0">John Doe</h6>
+            <h6 className="mb-0 mt-3">John Doe</h6>
             <p>Customer</p>
           </div>
         </div>
       </div>
+
       <div className="testimonial py-4 px-3">
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum corrupti
-          molestias aspernatur, quaerat at repellat error accusantium delectus
-          omnis sunt. Voluptate hic itaque provident quidem eos libero ullam
-          quam laboriosam?
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae
+          qui reiciendis inventore autem eaque tempore placeat non itaque
+          possimus perspiciatis rerum aut iusto ipsa a hic blanditiis delectus,
+          corrupti architecto.
         </p>
+
         <div className="d-flex align-items-center gap-4 mt-3">
-          <img src={ava02} alt="" className="w-25 h-25 rounded-2" />
+          <img src={ava02} className="w-25 h-25 rounded-2" alt="" />
           <div>
-            <h6 className="mt-3 mb-0">Christopher</h6>
+            <h6 className="mb-0 mt-3">Lia Franklin</h6>
             <p>Customer</p>
           </div>
         </div>
       </div>
+
       <div className="testimonial py-4 px-3">
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum corrupti
-          molestias aspernatur, quaerat at repellat error accusantium delectus
-          omnis sunt. Voluptate hic itaque provident quidem eos libero ullam
-          quam laboriosam?
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae
+          qui reiciendis inventore autem eaque tempore placeat non itaque
+          possimus perspiciatis rerum aut iusto ipsa a hic blanditiis delectus,
+          corrupti architecto.
         </p>
+
         <div className="d-flex align-items-center gap-4 mt-3">
-          <img src={ava03} alt="" className="w-25 h-25 rounded-2" />
+          <img src={ava03} className="w-25 h-25 rounded-2" alt="" />
           <div>
-            <h6 className="mt-3 mb-0">John Doe</h6>
+            <h6 className="mb-0 mt-3">John Doe</h6>
             <p>Customer</p>
           </div>
         </div>
       </div>
+
       <div className="testimonial py-4 px-3">
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum corrupti
-          molestias aspernatur, quaerat at repellat error accusantium delectus
-          omnis sunt. Voluptate hic itaque provident quidem eos libero ullam
-          quam laboriosam?
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae
+          qui reiciendis inventore autem eaque tempore placeat non itaque
+          possimus perspiciatis rerum aut iusto ipsa a hic blanditiis delectus,
+          corrupti architecto.
         </p>
+
         <div className="d-flex align-items-center gap-4 mt-3">
-          <img src={ava02} alt="" className="w-25 h-25 rounded-2" />
+          <img src={ava01} className="w-25 h-25 rounded-2" alt="" />
           <div>
-            <h6 className="mt-3 mb-0">Christopher</h6>
+            <h6 className="mb-0 mt-3">John Doe</h6>
+            <p>Customer</p>
+          </div>
+        </div>
+      </div>
+
+      <div className="testimonial py-4 px-3">
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae
+          qui reiciendis inventore autem eaque tempore placeat non itaque
+          possimus perspiciatis rerum aut iusto ipsa a hic blanditiis delectus,
+          corrupti architecto.
+        </p>
+
+        <div className="d-flex align-items-center gap-4 mt-3">
+          <img src={ava02} className="w-25 h-25 rounded-2" alt="" />
+          <div>
+            <h6 className="mb-0 mt-3">Lia Franklin</h6>
+            <p>Customer</p>
+          </div>
+        </div>
+      </div>
+
+      <div className="testimonial py-4 px-3">
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae
+          qui reiciendis inventore autem eaque tempore placeat non itaque
+          possimus perspiciatis rerum aut iusto ipsa a hic blanditiis delectus,
+          corrupti architecto.
+        </p>
+
+        <div className="d-flex align-items-center gap-4 mt-3">
+          <img src={ava03} className="w-25 h-25 rounded-2" alt="" />
+          <div>
+            <h6 className="mb-0 mt-3">John Doe</h6>
             <p>Customer</p>
           </div>
         </div>

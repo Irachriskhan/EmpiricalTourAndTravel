@@ -1,16 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "./booking.css";
 import { Form, FormGroup, ListGroup, ListGroupItem, Button } from "reactstrap";
 
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext";
+import { BASE_URL } from "../../utils/config";
 
 const Booking = ({ tour, avgRating }) => {
-  const { price, reviews } = tour;
+  const { price, reviews, title } = tour;
   const navigate = useNavigate();
 
-  const [credentials, setCredentials] = useState({
-    userId: "1", // later it will be dynamic
-    userEmail: "example@gmail.com",
+  const { user } = useContext(AuthContext);
+
+  const [booking, setBooking] = useState({
+    userId: user && user._id,
+    userEmail: user && user.email,
+    tourName: title,
     fullName: "",
     phone: "",
     guestSize: 1,
@@ -18,19 +23,43 @@ const Booking = ({ tour, avgRating }) => {
   });
 
   const handleChange = (e) => {
-    setCredentials((prev) => ({ ...prev, [e.target.id]: e.target.value }));
+    setBooking((prev) => ({ ...prev, [e.target.id]: e.target.value }));
   };
 
   const serviceFee = 10;
-  const totalAmount =
-    Number(price) * Number(credentials.guestSize) + Number(serviceFee);
-  // send data to the server
+  const totalAmount = Number(price) * Number(booking.guestSize);
 
-  const handlerClick = (e) => {
+  //   send data to the server
+  const handleclick = async (e) => {
     e.preventDefault();
 
-    navigate("/thank-you");
+    console.log(booking);
+
+    try {
+      if (!user || user === undefined || user === null) {
+        return alert("Pleas sign in");
+      }
+
+      const res = await fetch(`${BASE_URL}/booking`, {
+        method: "post",
+        headers: {
+          "content-type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify(booking),
+      });
+
+      const result = await res.json();
+
+      if (!res.ok) {
+        return alert(result.message);
+      }
+      navigate("/thank-you");
+    } catch (err) {
+      alert(err.message);
+    }
   };
+
   return (
     <div className="booking">
       <div className="booking__top d-flex align-items-center justify-content-between">
@@ -38,14 +67,15 @@ const Booking = ({ tour, avgRating }) => {
           ${price} <span>/per person</span>
         </h3>
         <span className="tour__rating d-flex align-items-center">
-          <i className="ri-star-fill"></i>
-          {avgRating === 0 ? null : avgRating}({reviews?.length})
+          <i class="ri-star-s-fill"></i>
+          {avgRating === 0 ? null : avgRating} ({reviews?.length})
         </span>
       </div>
-      {/* ==================booking form start====================== */}
+
+      {/*======== boking form start =======*/}
       <div className="booking__form">
         <h5>Information</h5>
-        <Form className="booking__info-form" onSubmit={handlerClick}>
+        <Form className="booking__info-form" onSubmit={handleclick}>
           <FormGroup>
             <input
               type="text"
@@ -82,31 +112,31 @@ const Booking = ({ tour, avgRating }) => {
           </FormGroup>
         </Form>
       </div>
-      {/* ==================booking form end====================== */}
-      {/* ==================booking bottom start====================== */}
+      {/*======== boking form end=======*/}
+
+      {/*======== boking bottom =======*/}
       <div className="booking__bottom">
         <ListGroup>
           <ListGroupItem className="border-0 px-0">
             <h5 className="d-flex align-items-center gap-1">
               ${price} <i class="ri-close-line"></i> 1 person
             </h5>
-            <span>${price}</span>
+            <span> ${price}</span>
           </ListGroupItem>
           <ListGroupItem className="border-0 px-0">
             <h5>Service charge</h5>
-            <span>{serviceFee}</span>
+            <span> ${serviceFee}</span>
           </ListGroupItem>
           <ListGroupItem className="border-0 px-0 total">
             <h5>Total</h5>
-            <span>{totalAmount}</span>
+            <span> ${totalAmount}</span>
           </ListGroupItem>
         </ListGroup>
 
-        <Button className="btn primary__btn w-100 mt-4" onClick={handlerClick}>
+        <Button className="btn primary__btn w-100 mt-4" onClick={handleclick}>
           Book Now
         </Button>
       </div>
-      {/* ==================booking bottom  end====================== */}
     </div>
   );
 };

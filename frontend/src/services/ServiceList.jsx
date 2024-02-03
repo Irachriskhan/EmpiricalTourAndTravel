@@ -8,26 +8,30 @@ import customizationImg from "../assets/images/customization.png";
 
 const servicesData = [
   {
+    id: 1,
     imgUrl: weatherImg,
-    title: "Calculate weather",
-    desc: "Lorem, ipsum dolor sit amet consectetur adipisicing elit.",
+    title: "Calculate Weather",
+    desc: "Lorem ipsum dolor sit emet, consectetur adipicing elit.",
   },
   {
+    id: 2,
     imgUrl: guideImg,
     title: "Best Tour Guide",
-    desc: "Lorem, ipsum dolor sit amet consectetur adipisicing elit.",
+    desc: "Lorem ipsum dolor sit emet, consectetur adipicing elit.",
   },
   {
+    id: 3,
     imgUrl: customizationImg,
-    title: "customization",
-    desc: "Lorem, ipsum dolor sit amet consectetur adipisicing elit.",
+    title: "Customization",
+    desc: "Lorem ipsum dolor sit emet, consectetur adipicing elit.",
   },
 ];
+
 const ServiceList = () => {
   return (
     <>
       {servicesData.map((item, index) => (
-        <Col lg="3" key={index}>
+        <Col lg="3" md="6" sm="12" className="mb-4" key={index}>
           <ServiceCard item={item} />
         </Col>
       ))}

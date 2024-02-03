@@ -7,7 +7,7 @@
 .tour__info,
 .tour__reviews {
     border-radius: 0.5rem;
-    border: 1px solid rgba(229, 231, 235);
+    border: 1px solid rgb(229, 231, 235);
     padding: 2rem;
 }
 
@@ -38,7 +38,7 @@
 
 .tour__info h5 {
     margin-bottom: 1rem;
-    font-size: 1.3rem;
+    font-style: 1.3rem;
 }
 
 .tour__info p {
@@ -103,20 +103,35 @@
 }
 
 .review__item p {
-    font-size: 0.9rem;
+    font-style: 0.9rem;
     color: var(--text-color);
 }
 
 .review__item h6 {
-    font-size: 1.1rem;
+    font-style: 1.1rem;
     color: var(--text-color);
 }
 
 .review__item span i {
-    font-size: 1.2rem;
+    font-style: 1.2rem;
     color: var(--secondary-color);
 }
 
 .review__item span {
     font-weight: 500;
+}
+
+@media only screen and (max-width:768px) {
+    .tour__extra-details {
+        flex-wrap: wrap;
+        row-gap: 1rem;
+    }
+
+    .tour__extra-details span {
+        font-size: .9rem;
+    }
+
+    .tour__extra-details span i {
+        font-size: 1rem;
+    }
 }
