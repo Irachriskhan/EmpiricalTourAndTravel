@@ -15,7 +15,7 @@ const createTour = async (req, res) => {
   } catch (err) {
     res.status(500).json({
       success: false,
-      message: "Failed to create. Try again",
+      message: "Failed to create a tour. Please try again",
     });
   }
 };

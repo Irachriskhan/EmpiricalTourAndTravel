@@ -58,7 +58,7 @@ const Footer = () => {
                   </Link>
                 </span>
                 <span>
-                  <Link to="#">
+                  <Link to="https://github.com/Irachriskhan/">
                     <i class="ri-github-fill"></i>
                   </Link>
                 </span>
@@ -121,7 +121,7 @@ const Footer = () => {
                   Email:
                 </h6>
 
-                <p className="mb-0">felicienmukesharugamba@gmail.com</p>
+                <p className="mb-0">irachriskhan@gmail.com</p>
               </ListGroupItem>
 
               <ListGroupItem className="ps-0 border-0 d-flex align-items-center gap-3">
@@ -132,7 +132,7 @@ const Footer = () => {
                   Phone:
                 </h6>
 
-                <p className="mb-0">+250784340197</p>
+                <p className="mb-0">+256791234567</p>
               </ListGroupItem>
             </ListGroup>
           </Col>
