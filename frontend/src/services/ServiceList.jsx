@@ -11,19 +11,19 @@ const servicesData = [
     id: 1,
     imgUrl: weatherImg,
     title: "Calculate Weather",
-    desc: "Lorem ipsum dolor sit emet, consectetur adipicing elit.",
+    desc: `Weather in Rwanda`,
   },
   {
     id: 2,
     imgUrl: guideImg,
     title: "Best Tour Guide",
-    desc: "Lorem ipsum dolor sit emet, consectetur adipicing elit.",
+    desc: "Check our best tour guides",
   },
   {
     id: 3,
     imgUrl: customizationImg,
     title: "Customization",
-    desc: "Lorem ipsum dolor sit emet, consectetur adipicing elit.",
+    desc: "Customize your trip as you want",
   },
 ];
 

@@ -34,10 +34,11 @@ const Home = () => {
                   <span className="highlight"> You dream it we plan it</span>
                 </h1>
                 <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim
-                  nulla odit, assumenda natus nostrum culpa tempora, expedita
-                  provident quasi ex, delectus veritatis accusamus aliquam
-                  asperiores obcaecati mollitia rem hic sit.
+                  Empirical Tour and Travel is a sustainable and responsible
+                  tour company that offers unforgettable travel experiences in
+                  Dr. Congo and the East African Region. We cater to travelers
+                  who are interested in safaris, gorilla trekking, cultural
+                  tours, sightseeing tours and hiking adventures.
                 </p>
               </div>
             </Col>
@@ -99,22 +100,22 @@ const Home = () => {
                   With our experience <br /> We will serve you
                 </h2>
                 <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.{" "}
-                  <br /> Suscipit blanditiis, repellat facilis commodi eveniet
-                  quia libero pariatur!
+                  We cater to travelers who are interested in safaris, gorilla
+                  trekking, cultural tours, sightseeing tours and hiking
+                  adventures.
                 </p>
               </div>
               <div className="counter__wrapper d-flex align-items-center gap-5">
                 <div className="counter__box">
-                  <span>100</span>
+                  <span>25</span>
                   <h6>Successful Trip</h6>
                 </div>
                 <div className="counter__box">
-                  <span>10</span>
+                  <span>6</span>
                   <h6>Regular clients</h6>
                 </div>
                 <div className="counter__box">
-                  <span>8</span>
+                  <span>6+</span>
                   <h6>Years of experience</h6>
                 </div>
               </div>
