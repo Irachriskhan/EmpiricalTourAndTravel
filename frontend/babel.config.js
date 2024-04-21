@@ -10,7 +10,9 @@ module.exports = function (api) {
     ],
   ];
 
-  const plugins = [{ skipEnvCheck: true }];
+  const plugins = [
+    // { skipEnvCheck: true }
+  ];
 
   return {
     presets,
