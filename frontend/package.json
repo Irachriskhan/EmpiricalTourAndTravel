@@ -20,6 +20,7 @@
     "reactstrap": "^9.2.2"
   },
   "devDependencies": {
+    "@babel/preset-react": "^7.24.1",
     "r3f-pack": "^2.8.0"
   }
 }
