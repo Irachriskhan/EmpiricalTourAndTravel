@@ -4,7 +4,7 @@ import { Container, Row, Col } from "reactstrap";
 
 import heroImg from "../assets/images/hero-img01.jpg";
 import heroImg02 from "../assets/images/hero-img02.jpg";
-import heroVideo from "../assets/images/hero-video.mp4";
+// import heroVideo from "../assets/images/hero-video.mp4";
 import worldImg from "../assets/images/world.png";
 import Subtitle from "../shared/Subtitle";
 import experienceImg from "../assets/images/experience.png";
@@ -49,7 +49,7 @@ const Home = () => {
             </Col>
             <Col lg="2">
               <div className="hero__img-box mt-4">
-                <video src={heroVideo} alt="" controls />
+                {/* <video src={heroVideo} alt="" controls /> */}
               </div>
             </Col>
             <Col lg="2">
