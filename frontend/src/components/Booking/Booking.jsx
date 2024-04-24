@@ -27,7 +27,7 @@ const Booking = ({ tour, avgRating }) => {
   };
 
   const serviceFee = 10;
-  const totalAmount = Number(price) * Number(booking.guestSize);
+  const totalAmount = Number(price) * Number(booking.guestSize) + serviceFee;
 
   //   send data to the server
   const handleclick = async (e) => {
