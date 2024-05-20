@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import  { useState, useContext } from "react";
 
 import { Container, Row, Col, Form, FormGroup, Button } from "reactstrap";
 import { Link, useNavigate } from "react-router-dom";
@@ -92,7 +92,7 @@ const Login = () => {
                   </Button>
                 </Form>
                 <p>
-                  Don't have an account? <Link to="/register">Create</Link>{" "}
+                  Don&apos;t have an account? <Link to="/register">Create</Link>{" "}
                 </p>
               </div>
             </div>

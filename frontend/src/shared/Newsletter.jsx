@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "./newsletter.css";
 import { Container, Col, Row } from "reactstrap";
 import maleTourist from "../assets/images/male-tourist.png";
