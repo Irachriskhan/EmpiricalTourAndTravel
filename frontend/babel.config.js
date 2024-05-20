@@ -5,12 +5,14 @@ module.exports = function (api) {
     [
       "@babel/preset-react",
       {
-        development: process.env.BABEL_ENV === "development",
+        deployment: process.env.BABEL_ENV === "deployment",
       },
     ],
   ];
 
-  const plugins = [{ skipEnvCheck: true }];
+  const plugins = [
+    // { skipEnvCheck: true }
+  ];
 
   return {
     presets,
