@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: my-vite-app
+    name: empiricaltourandtravel
     env: node
     buildCommand: npm run build
     startCommand: npm run serve
