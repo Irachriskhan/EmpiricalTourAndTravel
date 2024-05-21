@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: my-vite-app
+    env: node
+    buildCommand: npm run build
+    startCommand: npm run serve
