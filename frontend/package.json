@@ -1,26 +1,33 @@
 {
   "name": "frontend",
-  "version": "1.0.0",
-  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
-  "main": "index.js",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
   "scripts": {
-    "start": "r3f-pack start",
-    "build": "r3f-pack build",
-    "test": "r3f-pack test"
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview --port $PORT"
   },
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "bootstrap": "^5.3.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-responsive-masonry": "^2.2.0",
-    "react-router-dom": "^6.22.3",
+    "react-router-dom": "^6.23.1",
     "react-slick": "^0.30.2",
-    "reactstrap": "^9.2.2"
+    "reactstrap": "^9.2.2",
+    "remixicon": "^4.2.0",
+    "slick-carousel": "^1.8.1"
   },
   "devDependencies": {
-    "@babel/preset-react": "^7.24.1",
-    "r3f-pack": "^2.8.0"
+    "@types/react": "^18.2.66",
+    "@types/react-dom": "^18.2.22",
+    "@vitejs/plugin-react": "^4.2.1",
+    "eslint": "^8.57.0",
+    "eslint-plugin-react": "^7.34.1",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.6",
+    "vite": "^5.2.0"
   }
 }

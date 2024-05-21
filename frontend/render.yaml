@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: empiricaltourandtravel
+    env: node
+    buildCommand: npm run build
+    startCommand: npm run serve

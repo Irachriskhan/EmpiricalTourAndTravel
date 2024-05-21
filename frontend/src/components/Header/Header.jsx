@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useContext } from "react";
+import  { useRef, useEffect, useContext } from "react";
 import { Container, Row, Button } from "reactstrap";
 import { NavLink, Link, useNavigate } from "react-router-dom";
 
@@ -114,7 +114,7 @@ const Header = () => {
               </div>
 
               <span className="mobile__menu" onClick={toggleMenu}>
-                <i class="ri-menu-line"></i>
+                <i className="ri-menu-line"></i>
               </span>
             </div>
           </div>

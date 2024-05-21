@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useContext } from "react";
+import { useEffect, useRef, useState, useContext } from "react";
 import "../styles/tour-details.css";
 import { Container, Row, Col, Form, ListGroup } from "reactstrap";
 import { useParams } from "react-router-dom";
@@ -96,7 +96,7 @@ const TourDetails = () => {
                     <div className="d-flex align-items-center gap-5">
                       <span className="tour__rating d-flex align-items-center gap-1">
                         <i
-                          class="ri-star-s-fill"
+                          className="ri-star-s-fill"
                           style={{ color: "var(--secondary-color)" }}
                         ></i>
                         {avgRating === 0 ? null : avgRating}
@@ -108,23 +108,23 @@ const TourDetails = () => {
                       </span>
 
                       <span>
-                        <i class="ri-map-pin-user-fill"></i> {address}
+                        <i className="ri-map-pin-user-fill"></i> {address}
                       </span>
                     </div>
 
                     <div className="tour__extra-details">
                       <span>
-                        <i class="ri-map-pin-2-line"></i> {city}
+                        <i className="ri-map-pin-2-line"></i> {city}
                       </span>
                       <span>
-                        <i class="ri-money-dollar-circle-line"></i> {price} /per
+                        <i className="ri-money-dollar-circle-line"></i> {price} /per
                         person
                       </span>
                       <span>
-                        <i class="ri-map-pin-time-line"></i> {distance} k/m
+                        <i className="ri-map-pin-time-line"></i> {distance} k/m
                       </span>
                       <span>
-                        <i class="ri-group-line"></i> {maxGroupSize} people
+                        <i className="ri-group-line"></i> {maxGroupSize} people
                       </span>
                     </div>
                     <h5>Description</h5>
@@ -138,19 +138,19 @@ const TourDetails = () => {
                     <Form onSubmit={submitHandler}>
                       <div className="d-flex align-items-center gap-3 mb-4 rating__group">
                         <span onClick={() => setTourRating(1)}>
-                          1 <i class="ri-star-s-fill"></i>
+                          1 <i className="ri-star-s-fill"></i>
                         </span>
                         <span onClick={() => setTourRating(2)}>
-                          2 <i class="ri-star-s-fill"></i>
+                          2 <i className="ri-star-s-fill"></i>
                         </span>
                         <span onClick={() => setTourRating(3)}>
-                          3 <i class="ri-star-s-fill"></i>
+                          3 <i className="ri-star-s-fill"></i>
                         </span>
                         <span onClick={() => setTourRating(4)}>
-                          4 <i class="ri-star-s-fill"></i>
+                          4 <i className="ri-star-s-fill"></i>
                         </span>
                         <span onClick={() => setTourRating(5)}>
-                          5 <i class="ri-star-s-fill"></i>
+                          5 <i className="ri-star-s-fill"></i>
                         </span>
                       </div>
 
@@ -172,7 +172,7 @@ const TourDetails = () => {
 
                     <ListGroup className="user__reviews">
                       {reviews?.map((review) => (
-                        <div className="review__item">
+                        <div className="review__item"  key={review.id}>
                           <img src={avatar} alt="" />
 
                           <div className="w-100">
@@ -199,7 +199,7 @@ const TourDetails = () => {
 
                     <ListGroup className="user__reviews">
                       {reviews?.map((review) => (
-                        <div className="review__item">
+                        <div className="review__item"  key={review.id}>
                           <img src={avatar} alt="" />
 
                           <div className="w-100">

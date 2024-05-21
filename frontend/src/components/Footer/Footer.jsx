@@ -1,4 +1,4 @@
-import React from "react";
+// import React from "react";
 import "./footer.css";
 
 import { Container, Row, Col, ListGroup, ListGroupItem } from "reactstrap";
@@ -51,22 +51,22 @@ const Footer = () => {
               <div className="social__links d-flex align-items-center gap-4">
                 <span>
                   <Link to="#">
-                    <i class="ri-youtube-line"></i>
+                    <i className="ri-youtube-line"></i>
                   </Link>
                 </span>
                 <span>
                   <Link to="https://github.com/Irachriskhan/">
-                    <i class="ri-github-fill"></i>
+                    <i className="ri-github-fill"></i>
                   </Link>
                 </span>
                 <span>
                   <Link to="#">
-                    <i class="ri-facebook-circle-line"></i>
+                    <i className="ri-facebook-circle-line"></i>
                   </Link>
                 </span>
                 <span>
                   <Link to="#">
-                    <i class="ri-instagram-line"></i>
+                    <i className="ri-instagram-line"></i>
                   </Link>
                 </span>
               </div>
@@ -102,7 +102,7 @@ const Footer = () => {
               <ListGroupItem className="ps-0 border-0 d-flex align-items-center gap-3">
                 <h6 className="mb-0 d-flex align-items-center gap-2">
                   <span>
-                    <i class="ri-map-pin-line"></i>
+                    <i className="ri-map-pin-line"></i>
                   </span>
                   Address:
                 </h6>
@@ -113,7 +113,7 @@ const Footer = () => {
               <ListGroupItem className="ps-0 border-0 d-flex align-items-center gap-3">
                 <h6 className="mb-0 d-flex align-items-center gap-2">
                   <span>
-                    <i class="ri-mail-line"></i>
+                    <i className="ri-mail-line"></i>
                   </span>
                   Email:
                 </h6>
@@ -124,7 +124,7 @@ const Footer = () => {
               <ListGroupItem className="ps-0 border-0 d-flex align-items-center gap-3">
                 <h6 className="mb-0 d-flex align-items-center gap-2">
                   <span>
-                    <i class="ri-phone-fill"></i>
+                    <i className="ri-phone-fill"></i>
                   </span>
                   Phone:
                 </h6>
