@@ -8,6 +8,8 @@ import Login from "../pages/Login";
 import Register from "../pages/Register";
 import SearchResultList from "../pages/SearchResultList";
 import ThankYou from "../pages/ThankYou";
+import Dashboard from "../dashboard/admin/pages/Dashboard";
+import Layout from "../dashboard/admin/components/shared/Layout";
 
 const Routers = () => {
   return (
@@ -21,6 +23,9 @@ const Routers = () => {
       <Route path="/register" element={<Register />} />
       <Route path="/thank-you" element={<ThankYou />} />
       <Route path="/tours/search" element={<SearchResultList />} />
+      <Route path="/admin" element={<Layout />}>
+        <Route index element={<Dashboard />} />
+      </Route>
     </Routes>
   );
 };
