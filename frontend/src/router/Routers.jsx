@@ -9,6 +9,8 @@ import Register from "../pages/Register";
 import SearchResultList from "../pages/SearchResultList";
 import ThankYou from "../pages/ThankYou";
 import Dashboard from "../dashboard/admin/pages/Dashboard";
+import Request from "../dashboard/admin/pages/Request";
+import Alltours from "../dashboard/admin/pages/AllTours";
 import Layout from "../dashboard/admin/components/shared/Layout";
 
 const Routers = () => {
@@ -25,6 +27,8 @@ const Routers = () => {
       <Route path="/tours/search" element={<SearchResultList />} />
       <Route path="/admin" element={<Layout />}>
         <Route index element={<Dashboard />} />
+        <Route path="/admin/requests" element={<Request />} />
+        <Route path="/admin/tour-package" element={<Alltours />} />
       </Route>
     </Routes>
   );

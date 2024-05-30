@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { IoBagHandle, IoPieChart, IoPeople, IoCart } from "react-icons/io5";
 
-export default function DashboardStatsGrid() {
+export default function ToursKPI() {
   return (
     <div className="flex gap-4">
       <BoxWrapper>
@@ -14,7 +14,7 @@ export default function DashboardStatsGrid() {
           </span>
           <div className="flex items-center">
             <strong className="text-xl text-gray-700 font-semibold">232</strong>
-            <span className="text-sm text-green-500 pl-2">+343</span>
+            <span className="text-sm text-green-500 pl-2">-33</span>
           </div>
         </div>
       </BoxWrapper>
@@ -23,12 +23,10 @@ export default function DashboardStatsGrid() {
           <IoPieChart className="text-2xl text-white" />
         </div>
         <div className="pl-4">
-          <span className="text-sm text-gray-500 font-light">
-            Total Register
-          </span>
+          <span className="text-sm text-gray-500 font-light">Total Users</span>
           <div className="flex items-center">
-            <strong className="text-xl text-gray-700 font-semibold">423</strong>
-            <span className="text-sm text-green-500 pl-2">-343</span>
+            <strong className="text-xl text-gray-700 font-semibold">153</strong>
+            <span className="text-sm text-green-500 pl-2">-3</span>
           </div>
         </div>
       </BoxWrapper>
@@ -39,7 +37,7 @@ export default function DashboardStatsGrid() {
         <div className="pl-4">
           <span className="text-sm text-gray-500 font-light">Total Tours</span>
           <div className="flex items-center">
-            <strong className="text-xl text-gray-700 font-semibold">313</strong>
+            <strong className="text-xl text-gray-700 font-semibold">103</strong>
             <span className="text-sm text-red-500 pl-2">-30</span>
           </div>
         </div>
@@ -49,12 +47,12 @@ export default function DashboardStatsGrid() {
           <IoCart className="text-2xl text-white" />
         </div>
         <div className="pl-4">
-          <span className="text-sm text-gray-500 font-light">
-            Total Request
-          </span>
+          <span className="text-sm text-gray-500 font-light">Total Amount</span>
           <div className="flex items-center">
-            <strong className="text-xl text-gray-700 font-semibold">432</strong>
-            <span className="text-sm text-red-500 pl-2">-43</span>
+            <strong className="text-xl text-gray-700 font-semibold">
+              40,632
+            </strong>
+            <span className="text-sm text-red-500 pl-2">-15,000</span>
           </div>
         </div>
       </BoxWrapper>

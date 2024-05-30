@@ -13,37 +13,37 @@ export const DASHBOARD_SIDEBAR_LINKS = [
   {
     key: "dashboard",
     label: "Dashboard",
-    path: "/admin/dashboard",
+    path: "/admin",
     icon: <HiOutlineViewGrid />,
   },
   {
     key: "Recent",
     label: "Recent",
-    path: "/admin/dashboard/RecentTour",
+    path: "/admin/RecentTour",
     icon: <BiSolidDonateBlood />,
   },
   {
     key: "Booking",
     label: "Booking",
-    path: "/admin/dashboard/Booking",
+    path: "/admin/booking",
     icon: <FaHospital />,
   },
   {
     key: "request",
     label: "Requests",
-    path: "/admin/dashboard/requests",
+    path: "/admin/requests",
     icon: <HiOutlineUsers />,
   },
   {
     key: "TourPackage",
     label: "package",
-    path: "/admin/dashboard/TourPackage",
+    path: "/admin/tour-package",
     icon: <HiOutlineDocumentText />,
   },
   {
     key: "messages",
     label: "Messages",
-    path: "/admin/dashboard/messages",
+    path: "/admin/messages",
     icon: <HiOutlineAnnotation />,
   },
 ];
@@ -52,13 +52,13 @@ export const DASHBOARD_SIDEBAR_BOTTOM_LINKS = [
   {
     key: "settings",
     label: "Settings",
-    path: "/admin/dashboard/settings",
+    path: "/admin/settings",
     icon: <HiOutlineCog />,
   },
   {
     key: "support",
     label: "Help & Support",
-    path: "/admin/dashboard/support",
+    path: "/support",
     icon: <HiOutlineQuestionMarkCircle />,
   },
 ];
