@@ -1,95 +1,78 @@
 const User = require("../models/User.js");
+const asyncWrapper = require("../middleware/async.js");
 
 // create new User
-const createUser = async (req, res) => {
+const createUser = asyncWrapper(async (req, res) => {
   const newUser = new User(req.body);
+  const savedUser = await newUser.save();
 
-  try {
-    const savedUser = await newUser.save();
+  res.status(200).json({
+    success: true,
+    message: "Successfully created",
+    data: savedUser,
+  });
 
-    res.status(200).json({
-      success: true,
-      message: "Successfully created",
-      data: savedUser,
-    });
-  } catch (err) {
-    res.status(500).json({
-      success: false,
-      message: "Failed to create. Try again",
-    });
-  }
-};
+  // res.status(500).json({
+  //   success: false,
+  //   message: "Failed to create. Try again",
+  // });
+});
 
 // update User
-const updateUser = async (req, res) => {
+const updateUser = asyncWrapper(async (req, res) => {
   const id = req.params.id;
 
-  try {
-    const updatedUser = await User.findByIdAndUpdate(
-      id,
-      {
-        $set: req.body,
-      },
-      { new: true }
-    );
+  const updatedUser = await User.findByIdAndUpdate(
+    id,
+    { $set: req.body },
+    { new: true }
+  );
 
-    res.status(200).json({
-      success: true,
-      message: "Successfully updated",
-      data: updatedUser,
-    });
-  } catch (err) {
-    res.status(500).json({ success: false, message: "failed to update" });
-  }
-};
+  res.status(200).json({
+    success: true,
+    message: "Successfully updated",
+    data: updatedUser,
+  });
+  // res.status(500).json({ success: false, message: "failed to update" });
+});
 
 // delete User
-const deleteUser = async (req, res) => {
+const deleteUser = asyncWrapper(async (req, res) => {
   const id = req.params.id;
 
-  try {
-    await User.findByIdAndDelete(id);
+  await User.findByIdAndDelete(id);
+  res.status(200).json({
+    success: true,
+    message: "Successfully deleted",
+  });
 
-    res.status(200).json({
-      success: true,
-      message: "Successfully deleted",
-    });
-  } catch (err) {
-    res.status(500).json({ success: false, message: "failed to deleted" });
-  }
-};
+  // res.status(500).json({ success: false, message: "failed to deleted" });
+});
 
 // getSingle User
-const getSingleUser = async (req, res) => {
+const getSingleUser = asyncWrapper(async (req, res) => {
   const id = req.params.id;
+  const user = await User.findById(id);
 
-  try {
-    const user = await User.findById(id);
-
-    res.status(200).json({
-      success: true,
-      message: "Successful",
-      data: user,
-    });
-  } catch (err) {
-    res.status(404).json({ success: false, message: "not found" });
-  }
-};
+  res.status(200).json({
+    success: true,
+    message: "Successful",
+    data: user,
+  });
+  // res.status(404).json({ success: false, message: "not found" });
+});
 
 // getAll User
-const getAllUser = async (req, res) => {
-  try {
-    const users = await User.find({});
+const getAllUser = asyncWrapper(async (req, res) => {
+  const users = await User.find({});
 
-    res.status(200).json({
-      success: true,
-      message: "Successful",
-      data: users,
-    });
-  } catch (err) {
-    res.status(404).json({ success: false, message: "not found" });
-  }
-};
+  res.status(200).json({
+    success: true,
+    message: "Successful",
+    data: users,
+  });
+  // res.status(404).json({ success: false, message: "not found" });
+});
 
 module.exports = {
   deleteUser,

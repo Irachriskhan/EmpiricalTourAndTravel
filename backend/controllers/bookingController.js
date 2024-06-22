@@ -1,28 +1,35 @@
 const Booking = require("../models/Bookings.js");
+const asyncWrapper = require("../middleware/async.js");
+
+const {
+  validationChecker,
+  bookingValidator,
+} = require("../utils/validators/validators.js");
 
 // create new booking
-const createBooking = async (req, res) => {
-  const newBooking = new Booking(req.body);
-  try {
+const createBooking = asyncWrapper(async (req, res) => {
+  const input_data = req.body;
+
+  validationChecker(input_data, bookingValidator);
+
+  const newBooking = new Booking(input_data);
+
     const savedBooking = await newBooking.save();
     res.status(200).json({
       success: true,
       message: "Your tour is booked",
       data: savedBooking,
     });
-  } catch (err) {
-    res.status(500).json({
-      success: false,
-      message: "internal server error",
-    });
-  }
-};
+
+    // res.status(500).json({
+    //   success: false,
+    //   message: "internal server error",
+    // });
+  });
 
 // get single booking
-const getBooking = async (req, res) => {
+const getBooking = asyncWrapper(async (req, res) => {
   const id = req.params.id;
-
-  try {
     const book = await Booking.findById(id);
 
     res.status(200).json({
@@ -30,17 +37,14 @@ const getBooking = async (req, res) => {
       massage: "successful",
       data: book,
     });
-  } catch (err) {
-    res.status(404).json({
-      success: false,
-      massage: "not found",
-    });
-  }
-};
+    // res.status(404).json({
+    //   success: false,
+    //   massage: "not found",
+    // });
+  });
 
 // get all booking
-const getAllBooking = async (req, res) => {
-  try {
+const getAllBooking = asyncWrapper(async (req, res) => {
     const books = await Booking.find();
 
     res.status(200).json({
@@ -48,12 +52,10 @@ const getAllBooking = async (req, res) => {
       massage: "successful",
       data: books,
     });
-  } catch (err) {
-    res.status(500).json({
-      success: false,
-      massage: "internal server error",
-    });
-  }
-};
+    // res.status(500).json({
+    //   success: false,
+    //   massage: "internal server error",
+    // });
+  });
 
 module.exports = { createBooking, getBooking, getAllBooking };
