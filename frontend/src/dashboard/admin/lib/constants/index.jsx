@@ -6,9 +6,8 @@ import {
   HiOutlineQuestionMarkCircle,
   HiOutlineCog,
 } from "react-icons/hi";
-import { BiSolidDonateBlood } from "react-icons/bi";
-import { FaHospital } from "react-icons/fa";
-
+import { FaUmbrellaBeach, FaUserFriends, FaSuitcaseRolling, FaRegCalendarAlt, FaMapSigns, FaCommentDots } from "react-icons/fa";
+// import Customers from "../../components/shared/AdminPage.jsx/Customers";
 export const DASHBOARD_SIDEBAR_LINKS = [
   {
     key: "dashboard",
@@ -17,34 +16,41 @@ export const DASHBOARD_SIDEBAR_LINKS = [
     icon: <HiOutlineViewGrid />,
   },
   {
-    key: "Recent",
-    label: "Recent",
-    path: "/admin/RecentTour",
-    icon: <BiSolidDonateBlood />,
+    key: "customers",
+    label: "Customers",
+    path: "/admin/Customers",
+    icon: <FaUserFriends />,
   },
   {
-    key: "Booking",
-    label: "Booking",
-    path: "/admin/booking",
-    icon: <FaHospital />,
+    key: "tours",
+    label: "Tours",
+    path: "/admin/toursPage",
+    icon: <FaUmbrellaBeach />,
   },
   {
-    key: "request",
-    label: "Requests",
-    path: "/admin/requests",
+    key: "booking",
+    label: "Bookings",
+    path: "/admin/bookings",
+    icon: <FaRegCalendarAlt />,
+  },
+
+  {
+    key: "tourPackage",
+    label: "Tour Package",
+    path: "/admin/tourPackage",
+    icon: <FaSuitcaseRolling />,
+  },
+  {
+    key: "Feedback",
+    label: "Feedback",
+    path: "/admin/Feedback",
     icon: <HiOutlineUsers />,
-  },
-  {
-    key: "TourPackage",
-    label: "package",
-    path: "/admin/tour-package",
-    icon: <HiOutlineDocumentText />,
   },
   {
     key: "messages",
     label: "Messages",
-    path: "/admin/messages",
-    icon: <HiOutlineAnnotation />,
+    path: "/admin/Messages",
+    icon: <FaCommentDots />,
   },
 ];
 
@@ -62,3 +68,4 @@ export const DASHBOARD_SIDEBAR_BOTTOM_LINKS = [
     icon: <HiOutlineQuestionMarkCircle />,
   },
 ];
+
