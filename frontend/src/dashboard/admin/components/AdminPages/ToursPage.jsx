@@ -1,8 +1,11 @@
 import React from 'react'
-
+import { BASE_URL } from '../../../../utils/config';
+import useFetch from "../../../../hooks/useFetch";
 function ToursPage() {
   return (
-    <div>ToursPage</div>
+   <>
+   <button type="button"></button>
+   </>
   )
 }
 
