@@ -1,13 +1,16 @@
 import {
   HiOutlineViewGrid,
   HiOutlineUsers,
-  HiOutlineDocumentText,
-  HiOutlineAnnotation,
   HiOutlineQuestionMarkCircle,
   HiOutlineCog,
 } from "react-icons/hi";
-import { BiSolidDonateBlood } from "react-icons/bi";
-import { FaHospital } from "react-icons/fa";
+import { 
+  FaUmbrellaBeach, 
+  FaUserFriends, 
+  FaSuitcaseRolling, 
+  FaRegCalendarAlt, 
+  FaCommentDots 
+} from "react-icons/fa";
 
 export const DASHBOARD_SIDEBAR_LINKS = [
   {
@@ -17,34 +20,57 @@ export const DASHBOARD_SIDEBAR_LINKS = [
     icon: <HiOutlineViewGrid />,
   },
   {
-    key: "Recent",
-    label: "Recent",
-    path: "/admin/RecentTour",
-    icon: <BiSolidDonateBlood />,
+    key: "customers",
+    label: "Customers",
+    path: "/admin/Customers",
+    icon: <FaUserFriends />,
   },
   {
-    key: "Booking",
-    label: "Booking",
-    path: "/admin/booking",
-    icon: <FaHospital />,
+    key: "tours",
+    label: "Tours",
+    path: "/admin/toursPage",
+    icon: <FaUmbrellaBeach />,
+    dropdown: [
+      {
+        key: "allTours",
+        label: "All Tours",
+        path: "/admin/ToursPage/AllTours",
+      },
+      {
+        key: "addTour",
+        label: "Add Tour",
+        path: "/admin/toursPage/addTours",
+      },
+      {
+        key: "manageTours",
+        label: "Manage Tours",
+        path: "/admin/toursPage/manageTours",
+      },
+    ],
   },
   {
-    key: "request",
-    label: "Requests",
-    path: "/admin/requests",
+    key: "booking",
+    label: "Bookings",
+    path: "/admin/bookings",
+    icon: <FaRegCalendarAlt />,
+  },
+  {
+    key: "tourPackage",
+    label: "Tour Package",
+    path: "/admin/tourPackage",
+    icon: <FaSuitcaseRolling />,
+  },
+  {
+    key: "Feedback",
+    label: "Feedback",
+    path: "/admin/Feedback",
     icon: <HiOutlineUsers />,
-  },
-  {
-    key: "TourPackage",
-    label: "package",
-    path: "/admin/tour-package",
-    icon: <HiOutlineDocumentText />,
   },
   {
     key: "messages",
     label: "Messages",
-    path: "/admin/messages",
-    icon: <HiOutlineAnnotation />,
+    path: "/admin/Messages",
+    icon: <FaCommentDots />,
   },
 ];
 

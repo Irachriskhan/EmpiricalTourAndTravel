@@ -9,9 +9,16 @@ import Register from "../pages/Register";
 import SearchResultList from "../pages/SearchResultList";
 import ThankYou from "../pages/ThankYou";
 import Dashboard from "../dashboard/admin/pages/Dashboard";
-import Request from "../dashboard/admin/pages/Request";
-import Alltours from "../dashboard/admin/pages/AllTours";
+
 import Layout from "../dashboard/admin/components/shared/Layout";
+// admin dashboard pages
+import Customers from "../dashboard/admin/components/AdminPages/Customers";
+import ToursPage from "../dashboard/admin/components/AdminPages/ToursPage/AllTours";
+import Bookings from "../dashboard/admin/components/AdminPages/Bookings";
+import Feedback from "../dashboard/admin/components/AdminPages/Feedback";
+import TourPackage from "../dashboard/admin/components/AdminPages/TourPackage";
+import Messages from "../dashboard/admin/components/AdminPages/Messages";
+// import AddTours from "../dashboard/admin/components/AdminPages/ToursPage/AddTours";
 
 const Routers = () => {
   return (
@@ -25,10 +32,16 @@ const Routers = () => {
       <Route path="/register" element={<Register />} />
       <Route path="/thank-you" element={<ThankYou />} />
       <Route path="/tours/search" element={<SearchResultList />} />
+
       <Route path="/admin" element={<Layout />}>
         <Route index element={<Dashboard />} />
-        <Route path="/admin/requests" element={<Request />} />
-        <Route path="/admin/tour-package" element={<Alltours />} />
+        <Route path="/admin/Customers" element={<Customers/>} />
+        <Route path="/admin/ToursPage/AllTours" element={<ToursPage />} />
+        <Route path="/admin/Bookings" element={<Bookings/>} />
+        <Route path="/admin/Feedback" element={<Feedback/>} />
+        <Route path="/admin/TourPackage" element={<TourPackage/>} />
+        <Route path="/admin/Messages" element={<Messages/>} />
+        {/* <Route path="/admin/ToursPage/AddTours" element={<AddTours/>} /> */}
       </Route>
     </Routes>
   );
