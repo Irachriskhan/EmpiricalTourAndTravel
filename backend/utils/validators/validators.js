@@ -14,7 +14,7 @@ const tourValidator = Joi.object({
   featured: Joi.boolean(),
 });
 
-const userValidator = Joi.object({
+const registerValidator = Joi.object({
   username: Joi.string()
     .required()
     .pattern(new RegExp("^[a-zA-Z]"))
@@ -23,20 +23,31 @@ const userValidator = Joi.object({
     .trim(),
   email: Joi.string()
     .required()
-    .pattern(
-      new RegExp(
-        '^(([^<>()[]\\.,;:s@"]+(.[^<>()[]\\.,;:s@"]+)*)|(".+"))@(([[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}])|(([a-zA-Z-0-9]+.)+[a-zA-Z]{2,}))$'
-      )
-    )
+    .pattern(new RegExp("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$"))
     .email()
     .trim(),
   password: Joi.string()
-    .required()
-    .pattern(new RegExp("^[a-zA-Z0-9]{8,30}$"))
-    .trim(),
-  photo: Joi.string().required(),
+    .pattern(
+      new RegExp(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*d)(?=.*[@$!%*?&])[A-Za-zd@$!%*?&]{8,}$/
+      )
+    )
+    .required(),
+  photo: Joi.string(),
   role: Joi.string(),
 });
+
+const loginValidator = Joi.object({
+  email: Joi.string().required().email().trim(),
+  password: Joi.string()
+    .pattern(
+      new RegExp(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*d)(?=.*[@$!%*?&])[A-Za-zd@$!%*?&]{8,}$/
+      )
+    )
+    .required(),
+});
+// .pattern(new RegExp("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$"))
 
 const bookingValidator = Joi.object({
   userId: Joi.string().alphanum().required(),
@@ -58,22 +69,18 @@ const reviewValidator = Joi.object({
 // const profileValidator = Joi.object({});
 // const tourPackageValidator = Joi.object({});
 
-async function validationChecker(input, validator, res) {
-  try {
-    const { error } = validator.validate(input);
+// async function validationChecker(input, validator) {
+//   const { error } = validator.validate(input);
 
-    if (!error) {
-      return res.send({ error: error.details[0].message });
-    }
-  } catch (error) {
-    res.send({ error: error.details[0].message });
-  }
-}
+//   if (error) {
+//     return res.send({ error: error.details[0].message });
+//   }
+// }
 
 module.exports = {
-  validationChecker,
   tourValidator,
-  userValidator,
+  registerValidator,
   bookingValidator,
   reviewValidator,
+  loginValidator,
 };

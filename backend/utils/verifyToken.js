@@ -4,9 +4,10 @@ const verifyToken = (req, res, next) => {
   const token = req.cookies.accessToken;
 
   if (!token) {
-    return res
-      .status(401)
-      .json({ success: false, message: "You're not authorized" });
+    return res.status(401).json({
+      success: false,
+      message: "You're not authorized! Login to continue",
+    });
   }
 
   // if token is exist then verify the token
@@ -14,10 +15,14 @@ const verifyToken = (req, res, next) => {
     if (err) {
       return res
         .status(401)
-        .json({ success: false, message: "token is invalid" });
+        .json({ success: false, message: "Your token is invalid!" });
     }
-
+    console.log("----------------------------------");
+    console.log(req.user);
+    console.log("----------------------------------");
+    console.log(req);
     req.user = user;
+    // req.userId = decoded.userId;
     next(); // don't forget to call next
   });
 };
@@ -36,12 +41,13 @@ const verifyUser = (req, res, next) => {
 
 const verifyAdmin = (req, res, next) => {
   verifyToken(req, res, next, () => {
-    if (req.user.role === "admin") {
+    if (req.user.id === req.params.id && req.user.role === "admin") {
       next();
     } else {
-      return res
-        .status(401)
-        .json({ success: false, message: "You're not authorized" });
+      return res.status(401).json({
+        success: false,
+        message: "Not authorized, accessible for ADMINS only",
+      });
     }
   });
 };

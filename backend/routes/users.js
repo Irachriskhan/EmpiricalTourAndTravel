@@ -10,7 +10,7 @@ const router = express.Router();
 const { verifyAdmin, verifyUser } = require("../utils/verifyToken.js");
 
 // update User
-router.put("/:id", verifyUser, updateUser);
+router.patch("/:id", verifyUser, updateUser);
 
 // delete User
 router.delete("/:id", verifyUser, deleteUser);

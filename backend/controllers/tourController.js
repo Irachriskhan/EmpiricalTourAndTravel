@@ -1,33 +1,37 @@
 const Tour = require("../models/Tour.js");
 const asyncWrapper = require("../middleware/async.js");
+const { createCustomError } = require("../errors/custom-errors");
 
-const {
-  validationChecker,
-  tourValidator,
-} = require("../utils/validators/validators.js");
+const { tourValidator } = require("../utils/validators/validators.js");
 
 // create new tour
-const createTour = asyncWrapper(async (req, res) => {
+const createTour = asyncWrapper(async (req, res, next) => {
   const input_data = req.body;
+  const { error } = tourValidator.validate(input_data);
 
-  validationChecker(input_data, tourValidator, res);
-  const newTour = new Tour(input_data);
-  const savedTour = await newTour.save();
+  if (error) {
+    return res.send({ error: error.details[0].message });
+  }
+
+  const newTour = await Tour.create(input_data);
+
+  if (!newTour) return next(createCustomError(`Failed to create a tour`, 404));
 
   res.status(200).json({
     success: true,
     message: "Successfully created",
-    data: savedTour,
+    data: newTour,
   });
-  // res.status(500).json({
-  //   success: false,
-  //   error: err.message,
-  //   // message: "Failed to create a tour. Please try again",
-  // });
 });
 
 // update tour
-const updateTour = asyncWrapper(async (req, res) => {
+const updateTour = asyncWrapper(async (req, res, next) => {
+  const input_data = req.body;
+  const { error } = tourValidator.validate(input_data);
+
+  if (error) {
+    return res.send({ error: error.details[0].message });
+  }
   const id = req.params.id;
   const updatedTour = await Tour.findByIdAndUpdate(
     id,
@@ -37,41 +41,44 @@ const updateTour = asyncWrapper(async (req, res) => {
     { new: true }
   );
 
+  if (!updateTour) return next(createCustomError(`No tour with id ${id}`, 404));
+
   res.status(200).json({
     success: true,
     message: "Successfully updated",
     data: updatedTour,
   });
-  // res.status(500).json({ success: false, message: "failed to update" });
 });
 
 // delete tour
-const deleteTour = asyncWrapper(async (req, res) => {
+const deleteTour = asyncWrapper(async (req, res, next) => {
   const id = req.params.id;
+  const tour = await Tour.findByIdAndDelete(id);
 
-  await Tour.findByIdAndDelete(id);
+  if (!tour) return next(createCustomError(`No tour with id ${id}`, 404));
+
   res.status(200).json({
     success: true,
     message: "Successfully deleted",
   });
-  // res.status(500).json({ success: false, message: "failed to deleted" });
 });
 
 // getSingle tour
-const getSingleTour = asyncWrapper(async (req, res) => {
+const getSingleTour = asyncWrapper(async (req, res, next) => {
   const id = req.params.id;
   const tour = await Tour.findById(id).populate("reviews");
+
+  if (!tour) return next(createCustomError(`No tour with id ${id}`, 404));
 
   res.status(200).json({
     success: true,
     message: "Successful",
     data: tour,
   });
-  // res.status(404).json({ success: false, message: "not found" });
 });
 
 // getAll tour
-const getAllTour = asyncWrapper(async (req, res) => {
+const getAllTour = asyncWrapper(async (req, res, next) => {
   // for pagination
   const page = parseInt(req.query.page);
   const tours = await Tour.find({})
@@ -79,56 +86,60 @@ const getAllTour = asyncWrapper(async (req, res) => {
     .skip(page * 8)
     .limit(8);
 
+  if (!tours) return next(createCustomError(`No tour Found!`, 404));
+
   res.status(200).json({
     success: true,
     count: tours.length,
     message: "Successful",
     data: tours,
   });
-  // res.status(404).json({ success: false, message: "not found" });
 });
 
 // get tour by search
-const getTourBySearch = asyncWrapper(async (req, res) => {
+const getTourBySearch = asyncWrapper(async (req, res, next) => {
   // here 'i' means case sensitive
   const city = new RegExp(req.query.city, "i");
   const distance = parseInt(req.query.distance);
   const maxGroupSize = parseInt(req.query.maxGroupSize);
-  // gte means greater than equal
+  // gte means greater than or equal
   const tours = await Tour.find({
     city,
     distance: { $gte: distance },
     maxGroupSize: { $gte: maxGroupSize },
   });
 
+  if (!tours) return next(createCustomError(`No tour Found!`, 404));
+
   res.status(200).json({
     success: true,
     message: "Successful",
     data: tours,
   });
-  // res.status(404).json({ success: false, message: "not found" });
 });
 
 // get featured tour
-const getFeaturedTour = asyncWrapper(async (req, res) => {
+const getFeaturedTour = asyncWrapper(async (req, res, next) => {
   const tours = await Tour.find({ featured: true })
     .populate("reviews")
     .limit(8);
 
+  if (!tours) return next(createCustomError(`No tour Found!`, 404));
+
   res.status(200).json({
     success: true,
     message: "Successful",
     data: tours,
   });
-  // res.status(404).json({ success: false, message: "not found" });
 });
 
 // get tour counts
-const getTourCount = asyncWrapper(async (req, res) => {
+const getTourCount = asyncWrapper(async (req, res, next) => {
   const tourCount = await Tour.estimatedDocumentCount();
 
+  if (!tourCount) return next(createCustomError(`Failed to fetch!`, 404));
+
   res.status(200).json({ success: true, data: tourCount });
-  // res.status(500).json({ success: false, message: "failed to fetch" });
 });
 
 module.exports = {
