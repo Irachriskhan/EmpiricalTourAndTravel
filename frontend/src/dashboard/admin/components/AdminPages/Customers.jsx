@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { FaUserCircle, FaTrash, FaEdit } from 'react-icons/fa';
 import { BASE_URL } from '../../../../utils/config';
 import useFetch from '../../../../hooks/useFetch';
-import CustomerEditForm from './CustomerEditForm'; // Assuming it's in the same directory
+import CustomerEditForm from './CustomerEditForm';
 
 function Customers() {
   const { data: users, loading, error, refetch } = useFetch(`${BASE_URL}/users`);
@@ -22,8 +23,8 @@ function Customers() {
     try {
       const response = await axios.delete(`${BASE_URL}/users/${id}`);
       if (response.status === 200) {
-        toast.success(response.data.message);
-        refetch(); // Optionally, refetch data after successful delete
+        toast.success('Deleted customer successfully');
+        refetch();
       }
     } catch (error) {
       console.error(error);
@@ -69,7 +70,7 @@ function Customers() {
       if (response.status === 200) {
         toast.success('Customer details updated successfully');
         setShowEditForm(false);
-        refetch(); // Optionally, refetch data after successful update
+        refetch(); 
       }
     } catch (error) {
       console.error(error);
@@ -79,9 +80,9 @@ function Customers() {
 
   return (
     <div className="container mx-auto p-4">
+      <ToastContainer />
       <h1 className="text-2xl font-bold mb-4">Customers</h1>
 
-      {/* Edit Form */}
       {showEditForm && (
         <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50">
           <div className="bg-white p-4 shadow-md rounded-lg max-w-md w-full">

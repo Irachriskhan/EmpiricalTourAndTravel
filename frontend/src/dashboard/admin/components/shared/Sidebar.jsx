@@ -1,8 +1,8 @@
 import React from "react";
-import classNames from "classnames";
-import { Link, useLocation } from "react-router-dom";
 import { BiSolidDonateHeart } from "react-icons/bi";
 import { HiOutlineLogout } from "react-icons/hi";
+import classNames from "classnames";
+import SidebarLink from "./SidebarLink"; 
 import {
   DASHBOARD_SIDEBAR_LINKS,
   DASHBOARD_SIDEBAR_BOTTOM_LINKS,
@@ -35,22 +35,5 @@ export default function Sidebar() {
         </div>
       </div>
     </div>
-  );
-}
-
-function SidebarLink({ link }) {
-  const { pathname } = useLocation();
-
-  return (
-    <Link
-      to={link.path}
-      className={classNames(
-        pathname === link.path ? "bg-green-300 text-white" : "text-neutral-400",
-        linkClass
-      )}
-    >
-      <span className="text-xl">{link.icon}</span>
-      {link.label}
-    </Link>
   );
 }

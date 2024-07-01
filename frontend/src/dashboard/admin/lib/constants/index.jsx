@@ -1,13 +1,17 @@
 import {
   HiOutlineViewGrid,
   HiOutlineUsers,
-  HiOutlineDocumentText,
-  HiOutlineAnnotation,
   HiOutlineQuestionMarkCircle,
   HiOutlineCog,
 } from "react-icons/hi";
-import { FaUmbrellaBeach, FaUserFriends, FaSuitcaseRolling, FaRegCalendarAlt, FaMapSigns, FaCommentDots } from "react-icons/fa";
-// import Customers from "../../components/shared/AdminPage.jsx/Customers";
+import { 
+  FaUmbrellaBeach, 
+  FaUserFriends, 
+  FaSuitcaseRolling, 
+  FaRegCalendarAlt, 
+  FaCommentDots 
+} from "react-icons/fa";
+
 export const DASHBOARD_SIDEBAR_LINKS = [
   {
     key: "dashboard",
@@ -26,6 +30,23 @@ export const DASHBOARD_SIDEBAR_LINKS = [
     label: "Tours",
     path: "/admin/toursPage",
     icon: <FaUmbrellaBeach />,
+    dropdown: [
+      {
+        key: "allTours",
+        label: "All Tours",
+        path: "/admin/ToursPage/AllTours",
+      },
+      {
+        key: "addTour",
+        label: "Add Tour",
+        path: "/admin/toursPage/addTours",
+      },
+      {
+        key: "manageTours",
+        label: "Manage Tours",
+        path: "/admin/toursPage/manageTours",
+      },
+    ],
   },
   {
     key: "booking",
@@ -33,7 +54,6 @@ export const DASHBOARD_SIDEBAR_LINKS = [
     path: "/admin/bookings",
     icon: <FaRegCalendarAlt />,
   },
-
   {
     key: "tourPackage",
     label: "Tour Package",
@@ -68,4 +88,3 @@ export const DASHBOARD_SIDEBAR_BOTTOM_LINKS = [
     icon: <HiOutlineQuestionMarkCircle />,
   },
 ];
-
