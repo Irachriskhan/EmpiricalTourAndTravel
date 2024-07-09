@@ -1,61 +1,73 @@
 const Booking = require("../models/Bookings.js");
 const asyncWrapper = require("../middleware/async.js");
+const { createCustomError } = require("../errors/custom-errors");
 
-const {
-  validationChecker,
-  bookingValidator,
-} = require("../utils/validators/validators.js");
+const { bookingValidator } = require("../utils/validators/validators.js");
 
 // create new booking
-const createBooking = asyncWrapper(async (req, res) => {
+const createBooking = asyncWrapper(async (req, res, next) => {
   const input_data = req.body;
+  const { error } = bookingValidator.validate(input_data);
 
-  validationChecker(input_data, bookingValidator);
+  if (error) {
+    return res.send({ success: false, error: error.details[0].message });
+  }
 
   const newBooking = new Booking(input_data);
+  const savedBooking = await newBooking.save();
 
-    const savedBooking = await newBooking.save();
-    res.status(200).json({
-      success: true,
-      message: "Your tour is booked",
-      data: savedBooking,
-    });
+  if (!savedBooking) return next(createCustomError(`Cannot book a tour!`, 404));
 
-    // res.status(500).json({
-    //   success: false,
-    //   message: "internal server error",
-    // });
+  res.status(200).json({
+    success: true,
+    message: "Your tour is booked",
+    data: savedBooking,
   });
+});
 
 // get single booking
-const getBooking = asyncWrapper(async (req, res) => {
+const getBooking = asyncWrapper(async (req, res, next) => {
   const id = req.params.id;
-    const book = await Booking.findById(id);
+  const booking = await Booking.findById(id);
 
-    res.status(200).json({
-      success: true,
-      massage: "successful",
-      data: book,
-    });
-    // res.status(404).json({
-    //   success: false,
-    //   massage: "not found",
-    // });
+  if (!booking)
+    return next(createCustomError(`No Booked tour with id ${id}`, 404));
+
+  res.status(200).json({
+    success: true,
+    message: "successful",
+    data: booking,
   });
+});
 
 // get all booking
-const getAllBooking = asyncWrapper(async (req, res) => {
-    const books = await Booking.find();
+const getAllBooking = asyncWrapper(async (req, res, next) => {
+  const booking = await Booking.find({});
 
-    res.status(200).json({
-      success: true,
-      massage: "successful",
-      data: books,
-    });
-    // res.status(500).json({
-    //   success: false,
-    //   massage: "internal server error",
-    // });
+  if (!booking) return next(createCustomError(`No tours Booked found!`, 404));
+
+  res.status(200).json({
+    success: true,
+    message: "successful",
+    data: booking,
   });
+});
 
-module.exports = { createBooking, getBooking, getAllBooking };
+const getBookingByCustomer = asyncWrapper(async (req, res, next) => {
+  const userID = req.params.userId;
+  const bookings = await Booking.find({ userID });
+
+  if (!bookings) return next(createCustomError("User has no booking", 404));
+  res.status(200).json({
+    success: true,
+    message: "successful",
+    bookinNb: bookings.length,
+    data: bookings,
+  });
+});
+module.exports = {
+  createBooking,
+  getBooking,
+  getAllBooking,
+  getBookingByCustomer,
+};

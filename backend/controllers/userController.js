@@ -1,83 +1,102 @@
 const User = require("../models/User.js");
-const asyncWrapper = require("../middleware/async.js");
+const asyncWrapper = require("../middleware/async");
+const { createCustomError } = require("../errors/custom-errors");
+const { userValidator } = require("../utils/validators/validators.js");
 
 // create new User
-const createUser = asyncWrapper(async (req, res) => {
-  const newUser = new User(req.body);
-  const savedUser = await newUser.save();
+// const createUser = asyncWrapper(async (req, res, next) => {
+//   const user = await User.create(req.body);
 
-  res.status(200).json({
-    success: true,
-    message: "Successfully created",
-    data: savedUser,
-  });
+//   if (!user)
+//     return next(createCustomError(`Failed to create user. Try again!`, 401));
 
-  // res.status(500).json({
-  //   success: false,
-  //   message: "Failed to create. Try again",
-  // });
-});
+//   res.status(200).json({
+//     success: true,
+//     message: "Successfully created",
+//     data: savedUser,
+//   });
+// });
 
 // update User
-const updateUser = asyncWrapper(async (req, res) => {
-  const id = req.params.id;
+const updateUser = asyncWrapper(async (req, res, next) => {
+  // const input_data = req.body;
+  // const { error } = userValidator.validate(input_data);
 
-  const updatedUser = await User.findByIdAndUpdate(
+  // if (error) {
+  //   return res.send({ error: error.details[0].message });
+  // }
+
+  const id = req.params.id;
+  const updates = req.body;
+
+  // Remove email and username from updates
+  delete updates.email;
+  delete updates.username;
+  delete updates.password;
+
+  const user = await User.findByIdAndUpdate(
     id,
-    { $set: req.body },
+    { $set: updates },
     { new: true }
   );
+
+  if (!user) return next(createCustomError(`No user with id ${id} `, 404));
 
   res.status(200).json({
     success: true,
     message: "Successfully updated",
-    data: updatedUser,
+    data: user,
   });
-  // res.status(500).json({ success: false, message: "failed to update" });
 });
 
 // delete User
-const deleteUser = asyncWrapper(async (req, res) => {
+const deleteUser = asyncWrapper(async (req, res, next) => {
   const id = req.params.id;
+  const user = await User.findByIdAndDelete(id);
 
-  await User.findByIdAndDelete(id);
+  if (!user) return next(createCustomError(`No user with id ${id} `, 404));
+
   res.status(200).json({
     success: true,
     message: "Successfully deleted",
   });
-
-  // res.status(500).json({ success: false, message: "failed to deleted" });
 });
 
 // getSingle User
-const getSingleUser = asyncWrapper(async (req, res) => {
+const getSingleUser = asyncWrapper(async (req, res, next) => {
   const id = req.params.id;
   const user = await User.findById(id);
+
+  if (!user) return next(createCustomError(`No user with id ${id} `, 404));
 
   res.status(200).json({
     success: true,
     message: "Successful",
     data: user,
   });
-  // res.status(404).json({ success: false, message: "not found" });
 });
 
 // getAll User
 const getAllUser = asyncWrapper(async (req, res) => {
-  const users = await User.find({});
+  const users = await User.find();
+
+  if (!users) return next(createCustomError(`No user found! `, 404));
+
+  let sortedUsers = [];
+  for (let user of users) {
+    if (user.role !== "admin") sortedUsers.push(user);
+  }
 
   res.status(200).json({
     success: true,
     message: "Successful",
-    data: users,
+    data: sortedUsers,
   });
-  // res.status(404).json({ success: false, message: "not found" });
 });
 
 module.exports = {
   deleteUser,
   getSingleUser,
   getAllUser,
-  updateUser,
   updateUser,
 };

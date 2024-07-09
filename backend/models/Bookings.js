@@ -1,3 +1,4 @@
+const { required } = require("joi");
 const mongoose = require("mongoose");
 
 const bookingSchema = new mongoose.Schema(
@@ -19,6 +20,14 @@ const bookingSchema = new mongoose.Schema(
     guestSize: {
       type: Number,
       required: true,
+    },
+    price: {
+      type: Number,
+      required: true,
+    },
+    paymementStatus: {
+      type: String,
+      default: "pending",
     },
     phone: {
       type: Number,
