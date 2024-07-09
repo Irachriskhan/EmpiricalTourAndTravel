@@ -1,124 +1,96 @@
 import React, { useState } from 'react';
+import axios from 'axios';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { BASE_URL } from '../../../../../utils/config';
 
-function AddTours() {
-  const [tour, setTour] = useState({
+const AddTour = () => {
+  const [tourData, setTourData] = useState({
     name: '',
     description: '',
     price: '',
-    duration: '',
-    imageUrl: ''
+    date: '',
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setTour({
-      ...tour,
-      [name]: value
-    });
+    setTourData({ ...tourData, [name]: value });
   };
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    
     try {
-      if (tour) {
-        const response = await axios.put(`${BASE_URL}/tours/${tour_id}`, formData);
-     
-        if (response.status === 200){
-        toast.success('Tour Added successfull');
-        onSuccess();
-        console.log('Tour data submitted:', tour);
+      const response = await axios.post(`${BASE_URL}/tours/admin/`, tourData);
+      toast.success(response.data.message);
+      setTourData({ name: '', description: '', price: '', date: '' });
+    } catch (err) {
+      if (err.response && err.response.data) {
+        toast.error(`Failed to add tour: ${err.response.data.message}`);
+        console.error(err.response.data);
+      } else {
+        toast.error('Failed to add tour');
+        console.error(err);
       }
-      else {
-
-      }
-      }
-    } catch (error) {
-      console.error(error);
-      toast.error('Failed to save tour');
     }
-   
   };
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Add New Tour</h1>
-      <form onSubmit={handleSubmit} className="space-y-4">
+    <div className="max-w-md mx-auto bg-white p-8 rounded-lg shadow-md mt-10">
+      <h2 className="text-2xl font-semibold mb-6">Add New Tour</h2>
+      <form onSubmit={handleSubmit} className="space-y-6">
         <div>
-          <label className="block text-sm font-medium text-gray-700">
-            Tour Name
-          </label>
+          <label className="block text-gray-700">Name:</label>
           <input
             type="text"
             name="name"
-            value={tour.name}
+            value={tourData.name}
             onChange={handleChange}
-            className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
             required
+            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700">
-            Description
-          </label>
+          <label className="block text-gray-700">Description:</label>
           <textarea
             name="description"
-            value={tour.description}
+            value={tourData.description}
             onChange={handleChange}
-            className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
             required
+            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700">
-            Price
-          </label>
+          <label className="block text-gray-700">Price:</label>
           <input
             type="number"
             name="price"
-            value={tour.price}
+            value={tourData.price}
             onChange={handleChange}
-            className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
             required
+            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700">
-            Duration (days)
-          </label>
+          <label className="block text-gray-700">Date:</label>
           <input
-            type="number"
-            name="duration"
-            value={tour.duration}
+            type="date"
+            name="date"
+            value={tourData.date}
             onChange={handleChange}
-            className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
             required
+            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
         </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700">
-            Image URL
-          </label>
-          <input
-            type="text"
-            name="imageUrl"
-            value={tour.imageUrl}
-            onChange={handleChange}
-            className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
-            required
-          />
-        </div>
-        <div>
-          <button
-            type="submit"
-            className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-          >
-            Add Tour
-          </button>
-        </div>
+        <button
+          type="submit"
+          className="w-full bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors"
+        >
+          Add Tour
+        </button>
       </form>
+      <ToastContainer />
     </div>
   );
-}
+};
 
-export default AddTours;
+export default AddTour;

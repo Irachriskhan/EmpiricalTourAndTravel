@@ -17,8 +17,9 @@ import ToursPage from "../dashboard/admin/components/AdminPages/ToursPage/AllTou
 import Bookings from "../dashboard/admin/components/AdminPages/Bookings";
 import Feedback from "../dashboard/admin/components/AdminPages/Feedback";
 import TourPackage from "../dashboard/admin/components/AdminPages/TourPackage";
+import AddTours    from "../dashboard/admin/components/AdminPages/ToursPage/AddTours"
 import Messages from "../dashboard/admin/components/AdminPages/Messages";
-// import AddTours from "../dashboard/admin/components/AdminPages/ToursPage/AddTours";
+
 
 const Routers = () => {
   return (
@@ -41,7 +42,7 @@ const Routers = () => {
         <Route path="/admin/Feedback" element={<Feedback/>} />
         <Route path="/admin/TourPackage" element={<TourPackage/>} />
         <Route path="/admin/Messages" element={<Messages/>} />
-        {/* <Route path="/admin/ToursPage/AddTours" element={<AddTours/>} /> */}
+        <Route path="/admin/ToursPage/AddTours" element={<AddTours/>} />
       </Route>
     </Routes>
   );
