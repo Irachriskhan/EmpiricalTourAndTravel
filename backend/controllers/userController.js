@@ -78,7 +78,7 @@ const getSingleUser = asyncWrapper(async (req, res, next) => {
 
 // getAll User
 const getAllUser = asyncWrapper(async (req, res) => {
-  const users = await User.find({});
+  const users = await User.find();
 
   if (!users) return next(createCustomError(`No user found! `, 404));
 

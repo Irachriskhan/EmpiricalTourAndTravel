@@ -10,7 +10,7 @@ const createBooking = asyncWrapper(async (req, res, next) => {
   const { error } = bookingValidator.validate(input_data);
 
   if (error) {
-    return res.send({ error: error.details[0].message });
+    return res.send({ success: false, error: error.details[0].message });
   }
 
   const newBooking = new Booking(input_data);
@@ -42,7 +42,7 @@ const getBooking = asyncWrapper(async (req, res, next) => {
 
 // get all booking
 const getAllBooking = asyncWrapper(async (req, res, next) => {
-  const booking = await Booking.find();
+  const booking = await Booking.find({});
 
   if (!booking) return next(createCustomError(`No tours Booked found!`, 404));
 
@@ -53,4 +53,21 @@ const getAllBooking = asyncWrapper(async (req, res, next) => {
   });
 });
 
-module.exports = { createBooking, getBooking, getAllBooking };
+const getBookingByCustomer = asyncWrapper(async (req, res, next) => {
+  const userID = req.params.userId;
+  const bookings = await Booking.find({ userID });
+
+  if (!bookings) return next(createCustomError("User has no booking", 404));
+  res.status(200).json({
+    success: true,
+    message: "successful",
+    bookinNb: bookings.length,
+    data: bookings,
+  });
+});
+module.exports = {
+  createBooking,
+  getBooking,
+  getAllBooking,
+  getBookingByCustomer,
+};

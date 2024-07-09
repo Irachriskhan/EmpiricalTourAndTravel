@@ -1,8 +1,8 @@
-const User = require("../models/User.js");
+const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 const crypto = require("crypto");
 const jwt = require("jsonwebtoken");
-const asyncWrapper = require("../middleware/async.js");
+const asyncWrapper = require("../middleware/async");
 const { createCustomError } = require("../errors/custom-errors");
 const { BASE_URL } = require("../utils/config");
 const { hashPassword } = require("../utils/hash_password");
@@ -67,8 +67,6 @@ const login = asyncWrapper(async (req, res, next) => {
     req.body.password,
     user.password
   );
-  console.log(checkCorrectPassword);
-  console.log(req.body.password, user.password);
   // if password is incorrect
   if (!checkCorrectPassword)
     return next(createCustomError("You entered an Incorect password!", 401));
@@ -202,4 +200,20 @@ const updatePassword = asyncWrapper(async (req, res, next) => {
     .json({ message: "Your password is up to date", email: email });
 });
 
-module.exports = { register, login, resetPassword, updatePassword };
+const logout = asyncWrapper(async (req, res, next) => {
+  const token = req.cookies.accessToken;
+
+  if (!token) {
+    return res.status(401).json({
+      success: false,
+      message: "You're already Loged out",
+    });
+  }
+  req.user = null;
+  res.clearCookie("accessToken");
+  res
+    .status(200)
+    .json({ message: "Thank you! Your are loged out and free to go" });
+});
+
+module.exports = { register, login, logout, resetPassword, updatePassword };

@@ -10,7 +10,7 @@ const createTour = asyncWrapper(async (req, res, next) => {
   const { error } = tourValidator.validate(input_data);
 
   if (error) {
-    return res.send({ error: error.details[0].message });
+    return res.status(422).send({ error: error.details[0].message });
   }
 
   const newTour = await Tour.create(input_data);

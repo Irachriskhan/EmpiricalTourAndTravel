@@ -7,11 +7,12 @@ const connectDB = require("./db/connect");
 const notFound = require("./middleware/not-found");
 const errorHandlerMiddleware = require("./middleware/error-handler");
 
-const tourRoute = require("./routes/tours.js");
-const userRoute = require("./routes/users.js");
-const authRoute = require("./routes/auth.js");
-const reviewRoute = require("./routes/reviews.js");
-const bookingRoute = require("./routes/bookings.js");
+const tourRoute = require("./routes/tours");
+const userRoute = require("./routes/users");
+const authRoute = require("./routes/auth");
+const reviewRoute = require("./routes/reviews");
+const bookingRoute = require("./routes/bookings");
+const subscriptionRoute = require("./routes/subscription");
 
 dotenv.config();
 const app = express();
@@ -33,6 +34,7 @@ app.use("/api/v1/tours", tourRoute);
 app.use("/api/v1/users", userRoute);
 app.use("/api/v1/review", reviewRoute);
 app.use("/api/v1/booking", bookingRoute);
+app.use("/api/v1/subscribe", subscriptionRoute);
 
 app.use(notFound);
 app.use(errorHandlerMiddleware);

@@ -17,12 +17,8 @@ const verifyToken = (req, res, next) => {
         .status(401)
         .json({ success: false, message: "Your token is invalid!" });
     }
-    console.log("----------------------------------");
-    console.log(req.user);
-    console.log("----------------------------------");
-    console.log(req);
     req.user = user;
-    // req.userId = decoded.userId;
+    console.log(req.user);
     next(); // don't forget to call next
   });
 };

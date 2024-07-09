@@ -7,6 +7,7 @@ const tourValidator = Joi.object({
   city: Joi.string().required(),
   address: Joi.string().required(),
   distance: Joi.number(),
+  price: Joi.number(),
   photo: Joi.string().required(),
   desc: Joi.string().required(),
   maxGroupSize: Joi.number().integer().min(1).required(),
