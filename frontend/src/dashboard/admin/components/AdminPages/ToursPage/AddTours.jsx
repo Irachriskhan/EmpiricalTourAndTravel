@@ -9,7 +9,6 @@ const AddTour = () => {
     name: '',
     description: '',
     price: '',
-    date: '',
   });
 
   const handleChange = (e) => {
@@ -22,7 +21,7 @@ const AddTour = () => {
     try {
       const response = await axios.post(`${BASE_URL}/tours/admin/`, tourData);
       toast.success(response.data.message);
-      setTourData({ name: '', description: '', price: '', date: '' });
+      setTourData({ name: '', description: '', price: '' });
     } catch (err) {
       if (err.response && err.response.data) {
         toast.error(`Failed to add tour: ${err.response.data.message}`);
@@ -65,17 +64,6 @@ const AddTour = () => {
             type="number"
             name="price"
             value={tourData.price}
-            onChange={handleChange}
-            required
-            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
-          />
-        </div>
-        <div>
-          <label className="block text-gray-700">Date:</label>
-          <input
-            type="date"
-            name="date"
-            value={tourData.date}
             onChange={handleChange}
             required
             className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"

@@ -37,7 +37,7 @@ export default function Sidebar() {
       {isSidebarVisible && (
         <div className="bg-green-400 w-60 p-3 flex flex-col">
           <button
-            className="self-end text-white bg-red-500 hover:bg-red-600 px-2 py-1 rounded-full mb-2"
+            className="self-end text-white bg-green-500  px-2 py-1 rounded-full mb-2"
             onClick={toggleSidebar}
           >
             Close Sidebar

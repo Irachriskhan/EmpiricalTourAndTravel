@@ -41,11 +41,7 @@ export const DASHBOARD_SIDEBAR_LINKS = [
         label: "Add Tour",
         path: "/admin/toursPage/addTours",
       },
-      {
-        key: "manageTours",
-        label: "Manage Tours",
-        path: "/admin/toursPage/manageTours",
-      },
+    
     ],
   },
   {

@@ -22,9 +22,9 @@ body {
   font-family: var(--font-name);
 }
 
-section {
+/* section {
   padding: 50px 0px;
-}
+} */
 
 h1,
 h2,

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { FaEdit, FaTrash } from 'react-icons/fa';
+import { FaEye, FaTrash } from 'react-icons/fa';
 import { BASE_URL } from '../../../../../utils/config';
 import useFetch from '../../../../../hooks/useFetch';
 import TourEditForm from './TourEditForm';
@@ -24,17 +24,15 @@ function AllTours() {
 
   useEffect(() => {
     if (statusFilter) {
-      setFilteredTours(
-        tours.filter(tour => tour.status === statusFilter)
-      );
+      setFilteredTours(tours.filter(tour => tour.status === statusFilter));
     } else {
-      setFilteredTours(tours); // Show all tours if no filter is selected
+      setFilteredTours(tours);
     }
   }, [tours, statusFilter]);
 
   const handleDelete = async (_id) => {
     try {
-      const response = await axios.delete(`${BASE_URL}/tours/admin/${_id}`);
+      const response = await axios.patch(`${BASE_URL}/tours/admin/${_id}`);
       if (response.status === 200) {
         toast.success('Deleted tour successfully');
         setTours(tours.filter(tour => tour._id !== _id));
@@ -47,8 +45,7 @@ function AllTours() {
     }
   };
 
-  const handleEdit = (tour) => {
-    console.log(tour)
+  const handleView = (tour) => {
     setSelectedTour(tour);
     setShowEditForm(true);
   };
@@ -60,9 +57,7 @@ function AllTours() {
 
   const handleUpdate = async (formData) => {
     try {
-      console.log('Sending update request with formData:', formData);
-      const response = await axios.put(`${BASE_URL}/tours/admin/${formData._id}`, formData);
-      console.log('Response from update request:', response);
+      const response = await axios.get(`${BASE_URL}/tours/admin/${formData._id}`, formData);
       if (response.status === 200) {
         toast.success('Tour details updated successfully');
         setShowEditForm(false);
@@ -77,7 +72,7 @@ function AllTours() {
   };
 
   return (
-    <div className="container mx-auto p-4">
+    <div className="p-1">
       <ToastContainer />
       <h1 className="text-2xl font-bold mb-4">All Tours</h1>
       {showEditForm && selectedTour && (
@@ -132,8 +127,8 @@ function AllTours() {
                 <td className="py-3 md:py-4 px-3 md:px-4 lg:px-5 border">{tour.status}</td>
                 <td className="py-3 md:py-4 px-3 md:px-4 lg:px-5 border text-center">
                   <div className="flex justify-center items-center">
-                    <button onClick={() => handleEdit(tour)} className="text-green-500 hover:text-green-700 mr-2">
-                      <FaEdit />
+                    <button onClick={() => handleView(tour)} className="text-green-500 hover:text-green-700 mr-2">
+                      <FaEye />
                     </button>
                     <button onClick={() => handleDelete(tour._id)} className="text-red-500 hover:text-red-700">
                       <FaTrash />

@@ -1,11 +1,12 @@
-// TourEditForm.js
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 const TourEditForm = ({ tour, onUpdate, onClose }) => {
   const [formData, setFormData] = useState({
     id: tour._id,
+    photo: tour.photo,
     title: tour.title,
+    desc: tour.desc,
     city: tour.city,
     address: tour.address,
     price: tour.price,
@@ -28,7 +29,7 @@ const TourEditForm = ({ tour, onUpdate, onClose }) => {
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50">
       <div className="bg-white p-4 shadow-md rounded-lg max-w-lg w-full">
-        <h2 className="text-lg font-semibold mb-4">Edit Tour</h2>
+        <h2 className="text-lg font-semibold mb-4">View Tour</h2>
         <form onSubmit={handleSubmit}>
           <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
             <div className="mb-2 sm:mb-0">
@@ -112,14 +113,9 @@ const TourEditForm = ({ tour, onUpdate, onClose }) => {
               onClick={onClose}
               className="bg-gray-300 text-gray-700 px-4 py-2 rounded-lg mr-2"
             >
-              Cancel
+              Close
             </button>
-            <button
-              type="submit"
-              className="bg-blue-500 text-white px-4 py-2 rounded-lg"
-            >
-              Update
-            </button>
+           
           </div>
         </form>
       </div>

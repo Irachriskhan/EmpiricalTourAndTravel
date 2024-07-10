@@ -7,18 +7,18 @@ const {
 } = require("../controllers/userController.js");
 const router = express.Router();
 
-const { verifyAdmin, verifyUser } = require("../utils/verifyToken.js");
+// const { verifyAdmin, verifyUser } = require("../utils/verifyToken.js");
 
 // update User
-router.patch("/:id", verifyUser, updateUser);
+router.patch("/:id", updateUser);// verifyUser,
 
 // delete User
-router.delete("/:id", verifyUser, deleteUser);
+router.delete("/:id", deleteUser);// verifyUser,
 
 // get single User
-router.get("/:id", verifyUser, getSingleUser);
+router.get("/:id", getSingleUser);// verifyUser,
 
 // get all Users
-router.get("/", verifyAdmin, getAllUser);
+router.get("/",  getAllUser);//verifyAdmin,
 
 module.exports = router;
