@@ -33,12 +33,12 @@ function Bookings() {
     }
   };
 
-  const handleEdit = async (bookingId) => {
+  const handleView = async (bookingId) => {
     try {
       const response = await axios.get(`${BASE_URL}/booking/${bookingId}`);
       if (response.status === 200) {
         setSelectedBooking(response.data);
-        toast.success('Booking fetched successfully!');
+        toast.success('Booking details fetched successfully');
       }
     } catch (error) {
       toast.error('Failed to fetch booking');
@@ -86,7 +86,7 @@ function Bookings() {
                 <td className="py-3 md:py-4 px-3 md:px-4 lg:px-5 border">{booking.phone}</td>
                 <td className="py-3 md:py-4 px-3 md:px-4 lg:px-5 border text-center">
                   <div className="flex justify-center items-center">
-                    <button onClick={() => handleEdit(booking._id)} className="text-green-500 hover:text-green-700 mr-2">
+                    <button onClick={() => handleView(booking._id)} className="text-green-500 hover:text-green-700 mr-2">
                       <FaEye />
                     </button>
                     <button onClick={() => handleDelete(booking._id)} className="text-red-500 hover:text-red-700">
@@ -145,6 +145,15 @@ function Bookings() {
                 <input
                   type="text"
                   value={selectedBooking.phone}
+                  readOnly
+                  className="w-full px-3 py-2 border rounded-md"
+                />
+              </div>
+              <div className="mb-4">
+                <label className="block text-gray-700 font-bold mb-2">Address:</label>
+                <input
+                  type="text"
+                  value={selectedBooking.address}
                   readOnly
                   className="w-full px-3 py-2 border rounded-md"
                 />
