@@ -8,7 +8,7 @@ import { BASE_URL } from '../../../../utils/config';
 import useFetch from '../../../../hooks/useFetch';
 
 function Bookings() {
-  const { data: initialBookings, loading, error, refetch } = useFetch(`${BASE_URL}/booking`);
+  const { data: initialBookings, loading, error } = useFetch(`${BASE_URL}/booking`);
   const [bookings, setBookings] = useState([]);
   const [selectedBooking, setSelectedBooking] = useState(null);
 
@@ -19,17 +19,41 @@ function Bookings() {
   }, [initialBookings]);
 
   const handleDelete = async (_id) => {
+    toast.dismiss();
+    const toastId = toast(
+      <div>
+        <p>Are you sure you want to delete this booking?</p>
+        <div className="flex justify-end">
+          <button
+            className="mr-2 px-3 py-1 bg-green-500 text-white rounded"
+            onClick={() => performDelete(_id, toastId)}
+          >
+            Yes
+          </button>
+          <button
+            className="px-3 py-1 bg-gray-300 rounded"
+            onClick={() => toast.dismiss(toastId)}
+          >
+            No
+          </button>
+        </div>
+      </div>,
+      { autoClose: false }
+    );
+  };
+
+  const performDelete = async (_id, toastId) => {
     try {
       const response = await axios.patch(`${BASE_URL}/booking/${_id}`);
       if (response.status === 200) {
-        toast.success('Deleted booking successfully');
+        toast.success('Deleted booking successfully', { toastId });
         setBookings(bookings.filter(booking => booking._id !== _id));
       } else {
-        toast.error('Cannot find the booking!');
+        toast.error('Cannot find the booking!', { toastId });
       }
     } catch (error) {
       console.error('Error deleting booking:', error);
-      toast.error('Failed to delete booking');
+      toast.error('Failed to delete booking', { toastId });
     }
   };
 
@@ -38,7 +62,7 @@ function Bookings() {
       const response = await axios.get(`${BASE_URL}/booking/${bookingId}`);
       if (response.status === 200) {
         setSelectedBooking(response.data);
-        toast.success('Booking details fetched successfully');
+        toast.dismiss();
       }
     } catch (error) {
       toast.error('Failed to fetch booking');
@@ -51,7 +75,7 @@ function Bookings() {
   };
 
   return (
-    <div className="p-1">
+    <div className="p-4">
       <ToastContainer />
       <h1 className="text-2xl font-bold mb-4 text-green-700">All Bookings</h1>
       <div className="overflow-x-auto">
@@ -101,11 +125,11 @@ function Bookings() {
       </div>
       {selectedBooking && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-96">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg mx-4">
             <h2 className="text-2xl font-bold mb-4">Booking Details</h2>
-            <form>
-              <div className="mb-4">
-                <label className="block text-gray-700 font-bold mb-2">Customer Name:</label>
+            <form className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="block text-gray-700 font-bold mb-1">Customer Name:</label>
                 <input
                   type="text"
                   value={selectedBooking.useremail}
@@ -113,8 +137,8 @@ function Bookings() {
                   className="w-full px-3 py-2 border rounded-md"
                 />
               </div>
-              <div className="mb-4">
-                <label className="block text-gray-700 font-bold mb-2">Tour Title:</label>
+              <div>
+                <label className="block text-gray-700 font-bold mb-1">Tour Title:</label>
                 <input
                   type="text"
                   value={selectedBooking.tourName}
@@ -122,17 +146,8 @@ function Bookings() {
                   className="w-full px-3 py-2 border rounded-md"
                 />
               </div>
-              <div className="mb-4">
-                <label className="block text-gray-700 font-bold mb-2">Booking Date:</label>
-                <input
-                  type="text"
-                  value={moment(selectedBooking.bookAt).format('MMMM Do YYYY')}
-                  readOnly
-                  className="w-full px-3 py-2 border rounded-md"
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block text-gray-700 font-bold mb-2">Status:</label>
+              <div>
+                <label className="block text-gray-700 font-bold mb-1">Status:</label>
                 <input
                   type="text"
                   value={selectedBooking.status}
@@ -140,8 +155,8 @@ function Bookings() {
                   className="w-full px-3 py-2 border rounded-md"
                 />
               </div>
-              <div className="mb-4">
-                <label className="block text-gray-700 font-bold mb-2">Phone:</label>
+              <div>
+                <label className="block text-gray-700 font-bold mb-1">Phone:</label>
                 <input
                   type="text"
                   value={selectedBooking.phone}
@@ -149,8 +164,8 @@ function Bookings() {
                   className="w-full px-3 py-2 border rounded-md"
                 />
               </div>
-              <div className="mb-4">
-                <label className="block text-gray-700 font-bold mb-2">Address:</label>
+              <div className="col-span-2">
+                <label className="block text-gray-700 font-bold mb-1">Address:</label>
                 <input
                   type="text"
                   value={selectedBooking.address}
@@ -158,9 +173,11 @@ function Bookings() {
                   className="w-full px-3 py-2 border rounded-md"
                 />
               </div>
-              <button type="button" onClick={closeBookingDetails} className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-700">
-                Close
-              </button>
+              <div className="col-span-2">
+                <button type="button" onClick={closeBookingDetails} className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-700 w-full">
+                  Close
+                </button>
+              </div>
             </form>
           </div>
         </div>

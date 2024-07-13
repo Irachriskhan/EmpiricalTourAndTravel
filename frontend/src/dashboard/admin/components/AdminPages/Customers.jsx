@@ -144,7 +144,7 @@ function Customers() {
         <table className="min-w-full bg-white border border-gray-300 rounded-lg overflow-hidden">
           <thead className="bg-green-200 border-b border-green-300">
             <tr className="text-left text-xs md:text-sm lg:text-base text-gray-700 uppercase tracking-wider">
-              {['Profile', 'Email', 'Phone', 'Address', 'Actions'].map((heading) => (
+              {['Profile', Name,'Email', 'Phone', 'Address', 'Actions'].map((heading) => (
                 <th key={heading} className="py-2 px-3 md:py-3 md:px-4 border-r border-green-300">
                   {heading}
                 </th>

@@ -31,18 +31,41 @@ function AllTours() {
   }, [tours, statusFilter]);
 
   const handleDelete = async (_id) => {
-    try {
-      const response = await axios.patch(`${BASE_URL}/tours/admin/${_id}`);
-      if (response.status === 200) {
-        toast.success('Deleted tour successfully');
-        setTours(tours.filter(tour => tour._id !== _id));
-      } else {
-        toast.error('Cannot find the tour!');
+    toast.info(
+      <div>
+        <p>Are you sure you want to delete this tour?</p>
+        <div>
+          <button
+            onClick={async () => {
+              try {
+                const response = await axios.patch(`${BASE_URL}/tours/admin/${_id}`);
+                if (response.status === 200) {
+                  toast.success('Deleted tour successfully');
+                  setTours(tours.filter(tour => tour._id !== _id));
+                } else {
+                  toast.error('Cannot find the tour!');
+                }
+              } catch (error) {
+                console.error('Error deleting tour:', error);
+                toast.error('Failed to delete tour');
+              }
+            }}
+            className="mr-2 bg-red-500 text-white p-1 rounded"
+          >
+            Yes
+          </button>
+          <button className="bg-gray-300 p-1 rounded" onClick={() => toast.dismiss()}>
+            No
+          </button>
+        </div>
+      </div>,
+      {
+        autoClose: false,
+        closeOnClick: false,
+        draggable: false,
+        closeButton: false,
       }
-    } catch (error) {
-      console.error('Error deleting tour:', error);
-      toast.error('Failed to delete tour');
-    }
+    );
   };
 
   const handleView = (tour) => {
@@ -74,7 +97,7 @@ function AllTours() {
   return (
     <div className="p-1">
       <ToastContainer />
-      <h1 className="text-2xl font-bold mb-4">All Tours</h1>
+      <h1 className="text-2xl font-bold mb-4 text-green-700">All Tours</h1>
       {showEditForm && selectedTour && (
         <TourEditForm tour={selectedTour} onUpdate={handleUpdate} onClose={handleCloseForm} />
       )}
@@ -93,7 +116,7 @@ function AllTours() {
                   <select
                     value={statusFilter}
                     onChange={(e) => setStatusFilter(e.target.value)}
-                    className="ml-2 border border-gray-300 rounded p-1 text-xs"
+                    className="ml-2 border border-blue-300 bg-green-500 text-white rounded p-1 text-xs"
                   >
                     <option value="">All</option>
                     <option value="Active">Active</option>
