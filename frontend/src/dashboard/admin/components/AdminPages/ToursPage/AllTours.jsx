@@ -50,7 +50,7 @@ function AllTours() {
                 toast.error('Failed to delete tour');
               }
             }}
-            className="mr-2 bg-red-500 text-white p-1 rounded"
+            className="mr-2 bg-green-500 text-white p-1 rounded"
           >
             Yes
           </button>
@@ -153,7 +153,7 @@ function AllTours() {
                     <button onClick={() => handleView(tour)} className="text-green-500 hover:text-green-700 mr-2">
                       <FaEye />
                     </button>
-                    <button onClick={() => handleDelete(tour._id)} className="text-red-500 hover:text-red-700">
+                    <button onClick={() => handleDelete(tour._id)} className="text-green-500 hover:text-green-700">
                       <FaTrash />
                     </button>
                   </div>

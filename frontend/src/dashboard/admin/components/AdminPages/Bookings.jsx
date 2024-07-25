@@ -113,7 +113,7 @@ function Bookings() {
                     <button onClick={() => handleView(booking._id)} className="text-green-500 hover:text-green-700 mr-2">
                       <FaEye />
                     </button>
-                    <button onClick={() => handleDelete(booking._id)} className="text-red-500 hover:text-red-700">
+                    <button onClick={() => handleDelete(booking._id)} className="text-green-500 hover:text-green-700">
                       <FaTrash />
                     </button>
                   </div>

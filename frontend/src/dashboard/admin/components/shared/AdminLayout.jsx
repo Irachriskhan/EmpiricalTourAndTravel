@@ -2,7 +2,7 @@ import { Outlet } from "react-router-dom";
 import Sidebar from "./Sidebar";
 import Header from "./Header";
 
-export default function Layout() {
+export default function AdminLayout() {
   return (
     <div className="bg-neutral-100 h-screen w-screen overflow-hidden flex flex-row">
       <Sidebar />
@@ -15,3 +15,7 @@ export default function Layout() {
     </div>
   );
 }
+AdminLayout.js
+AdminLayout.js
+AdminLayout.js
+

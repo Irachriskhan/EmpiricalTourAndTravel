@@ -1,26 +1,28 @@
-import React from 'react';
+// import React, { useContext } from 'react';
+import React, { useContext } from 'react';
 import { Route, Navigate } from 'react-router-dom';
-// import jwtDecode from 'jwt-decode';
+import { AuthContext } from '../context/AuthContext';
 
-const PrivateRoute = ({ element: Component, roleRequired, ...rest }) => {
-    const token = document.cookie
-      .split('; ')
-      .find(row => row.startsWith('accesstoken='))
-      ?.split('=')[1];
+const PrivateRoute = ({ component: Component, roles, ...rest }) => {
+  const { user } = useContext(AuthContext);
 
-    const isAuthenticated = !!token;
-    const user = token ? jwtDecode(token) : null;
-    const userRole = user?.role;
-
-    if (!isAuthenticated) {
-        return <Navigate to="/login" />;
-    }
-
-    if (roleRequired && userRole !== roleRequired) {
-        return <Navigate to="/" />;
-    }
-
-    return <Component {...rest} />;
+  return (
+    <Route
+      {...rest}
+      element={
+        user ? (
+          roles && roles.indexOf(user.role) === -1 ? (
+            <Navigate to="/" />
+          ) : (
+            <Component />
+          )
+        ) : (
+          <Navigate to="/login" />
+        )
+      }
+    />
+  );
 };
 
 export default PrivateRoute;
+
