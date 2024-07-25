@@ -12,6 +12,12 @@ const createTour = asyncWrapper(async (req, res, next) => {
   if (error) {
     return res.status(422).send({ error: error.details[0].message });
   }
+  const { title } = req.body;
+  const tourTitle = await Tour.findOne({ title: title });
+  if (tourTitle)
+    return next(
+      createCustomError(`Tour with title "${title}" already  exist`, 422)
+    );
 
   const newTour = await Tour.create(input_data);
 
@@ -51,9 +57,14 @@ const updateTour = asyncWrapper(async (req, res, next) => {
 });
 
 // delete tour
-const deleteTour = asyncWrapper(async (req, res, next) => {
+const archiveTour = asyncWrapper(async (req, res, next) => {
   const id = req.params.id;
-  const tour = await Tour.findByIdAndDelete(id);
+  const { status } = req.body;
+  const tour = await Tour.findByIdAndUpdate(
+    id,
+    { $set: status },
+    { new: true }
+  );
 
   if (!tour) return next(createCustomError(`No tour with id ${id}`, 404));
 
@@ -148,7 +159,7 @@ module.exports = {
   getTourBySearch,
   getAllTour,
   getSingleTour,
-  deleteTour,
+  archiveTour,
   updateTour,
   createTour,
 };

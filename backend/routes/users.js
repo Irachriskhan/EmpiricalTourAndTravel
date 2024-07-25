@@ -1,6 +1,6 @@
 const express = require("express");
 const {
-  deleteUser,
+  archiveUser,
   getAllUser,
   getSingleUser,
   updateUser,
@@ -13,7 +13,7 @@ const { verifyAdmin, verifyUser } = require("../utils/verifyToken.js");
 router.patch("/:id", verifyUser, updateUser);
 
 // delete User
-router.delete("/:id", verifyUser, deleteUser);
+router.patch("/:id/delete", verifyUser, archiveUser);
 
 // get single User
 router.get("/:id", verifyUser, getSingleUser);
