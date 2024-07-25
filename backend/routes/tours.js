@@ -9,7 +9,7 @@ const {
   getFeaturedTour,
   getTourCount,
 } = require("../controllers/tourController.js");
-const { verifyAdmin } = require("../utils/verifyToken.js");
+// const { verifyAdmin } = require("../utils/verifyToken.js");
 
 const router = express.Router();
 

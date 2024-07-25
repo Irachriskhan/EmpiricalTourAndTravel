@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { FaUserCircle, FaTrash, FaEdit } from 'react-icons/fa';
+import { FaUserCircle, FaTrash, FaEye } from 'react-icons/fa';
 import { BASE_URL } from '../../../../utils/config';
 import useFetch from '../../../../hooks/useFetch';
 
@@ -15,16 +14,22 @@ function Customers() {
     id: '',
     name: '',
     email: '',
+    username: '',
     phone: '',
     address: '',
+    country: '',
+    photo: '',
   });
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [deleteUserId, setDeleteUserId] = useState(null);
 
-  const handleDelete = async (id) => {
+  const handleDelete = async () => {
     try {
-      const response = await axios.delete(`${BASE_URL}/users/${id}`);
+      const response = await axios.patch(`${BASE_URL}/users/${deleteUserId}`);
       if (response.status === 200) {
         toast.success('Deleted customer successfully');
-        await refetch();
+        // await refetch();
+        setShowDeleteModal(false);
       } else {
         throw new Error('Failed to delete customer');
       }
@@ -40,8 +45,11 @@ function Customers() {
       id: user._id,
       name: user.name,
       email: user.email,
+      username: user.username,
       phone: user.phone,
       address: user.address,
+      country: user.country,
+      photo: user.photo,
     });
     setShowEditForm(true);
   };
@@ -52,8 +60,11 @@ function Customers() {
       id: '',
       name: '',
       email: '',
+      username: '',
       phone: '',
       address: '',
+      country: '',
+      photo: '',
     });
     setShowEditForm(false);
   };
@@ -68,11 +79,11 @@ function Customers() {
   const handleUpdate = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.put(`${BASE_URL}/users/${formData.id}`, formData);
+      const response = await axios.patch(`${BASE_URL}/users/${formData.id}`, formData);
       if (response.status === 200) {
         toast.success('Customer details updated successfully');
         setShowEditForm(false);
-        await refetch();
+        // await refetch();
       } else {
         throw new Error('Failed to update customer');
       }
@@ -82,116 +93,149 @@ function Customers() {
     }
   };
 
+  const openDeleteModal = (id) => {
+    setDeleteUserId(id);
+    setShowDeleteModal(true);
+  };
+
+  const closeDeleteModal = () => {
+    setShowDeleteModal(false);
+    setDeleteUserId(null);
+  };
+
   return (
-    <div className="container mx-auto p-4">
+    <div className="p-1">
       <ToastContainer />
       <h1 className="text-3xl font-bold mb-6 text-center text-green-600">Customers</h1>
 
       {showEditForm && (
         <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50">
           <div className="bg-white p-6 shadow-md rounded-lg max-w-md w-full mx-4">
-            <h2 className="text-lg font-semibold mb-4 text-green-600">Edit Customer</h2>
+            <h2 className="text-lg font-semibold mb-4 text-green-600">View Customer</h2>
             <form onSubmit={handleUpdate}>
-              <div className="mb-4">
-                <label htmlFor="name" className="block text-sm font-medium text-gray-700">Name</label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  className="border border-gray-300 rounded-lg px-3 py-2 mt-1 focus:outline-none focus:border-green-500 w-full"
-                  required
-                />
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                {[
+                  { label: 'Name', name: 'name', type: 'text' },
+                  { label: 'Email', name: 'email', type: 'email' },
+                  { label: 'Username', name: 'username', type: 'text' },
+                  { label: 'Phone', name: 'phone', type: 'tel' },
+                  { label: 'Address', name: 'address', type: 'text' },
+                  { label: 'Country', name: 'country', type: 'text' },
+                  { label: 'Photo URL', name: 'photo', type: 'text' },
+                ].map(({ label, name, type }) => (
+                  <div key={name}>
+                    <label htmlFor={name} className="block text-sm font-medium text-gray-700">
+                      {label}
+                    </label>
+                    <input
+                      type={type}
+                      id={name}
+                      name={name}
+                      value={formData[name]}
+                      onChange={handleChange}
+                      className="border border-gray-300 rounded-lg px-3 py-2 mt-1 focus:outline-none focus:border-green-500 w-full"
+                      required
+                    />
+                  </div>
+                ))}
               </div>
-              <div className="mb-4">
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  className="border border-gray-300 rounded-lg px-3 py-2 mt-1 focus:outline-none focus:border-green-500 w-full"
-                  required
-                />
-              </div>
-              <div className="mb-4">
-                <label htmlFor="phone" className="block text-sm font-medium text-gray-700">Phone</label>
-                <input
-                  type="tel"
-                  id="phone"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  className="border border-gray-300 rounded-lg px-3 py-2 mt-1 focus:outline-none focus:border-green-500 w-full"
-                  required
-                />
-              </div>
-              <div className="mb-4">
-                <label htmlFor="address" className="block text-sm font-medium text-gray-700">Address</label>
-                <input
-                  type="text"
-                  id="address"
-                  name="address"
-                  value={formData.address}
-                  onChange={handleChange}
-                  className="border border-gray-300 rounded-lg px-3 py-2 mt-1 focus:outline-none focus:border-green-500 w-full"
-                  required
-                />
-              </div>
-              <div className="flex justify-end">
-                <button type="submit" className="bg-green-500 text-white px-4 py-2 rounded-lg mr-2 hover:bg-green-600 transition duration-300">Save</button>
-                <button type="button" onClick={handleCloseForm} className="bg-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-400 transition duration-300">Cancel</button>
+              <div className="flex justify-end mt-4">
+                <button
+                  type="button"
+                  onClick={handleCloseForm}
+                  className="bg-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-400 transition duration-300"
+                >
+                  Close
+                </button>
+                <button
+                  type="submit"
+                  className="bg-green-500 text-white px-4 py-2 rounded-lg ml-2 hover:bg-green-600 transition duration-300"
+                >
+                  Update
+                </button>
               </div>
             </form>
           </div>
         </div>
       )}
 
-      <div className=" overflow-x-auto ">
-        <table className="table-responsive min-w-full bg-white border border-gray-300 rounded-lg overflow-hidden">
+      {showDeleteModal && (
+        <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50">
+          <div className="bg-white p-6 shadow-md rounded-lg max-w-md w-full mx-4">
+            <h2 className="text-lg font-semibold mb-4 text-red-600">Confirm Deletion</h2>
+            <p>Are you sure you want to delete this customer?</p>
+            <div className="flex justify-end mt-4">
+              <button
+                type="button"
+                onClick={closeDeleteModal}
+                className="bg-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-400 transition duration-300"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                onClick={handleDelete}
+                className="bg-green-500 text-white px-4 py-2 rounded-lg ml-2 hover:bg-red-600 transition duration-300"
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <div className="overflow-x-auto">
+        <table className="min-w-full bg-white border border-gray-300 rounded-lg overflow-hidden">
           <thead className="bg-green-200 border-b border-green-300">
             <tr className="text-left text-xs md:text-sm lg:text-base text-gray-700 uppercase tracking-wider">
-              <th className="py-3 px-4 border-r border-green-300">Profile</th>
-              <th className="py-3 px-4 border-r border-green-300">Email</th>
-              <th className="py-3 px-4 border-r border-green-300">Phone</th>
-              <th className="py-3 px-4 border-r border-green-300">Address</th>
-              <th className="py-3 px-4 text-center">Actions</th>
+              {['Profile', 'Name', 'Email', 'Phone', 'Address', 'Actions'].map((heading) => (
+                <th key={heading} className="py-2 px-3 md:py-3 md:px-4 border-r border-green-300">
+                  {heading}
+                </th>
+              ))}
             </tr>
           </thead>
           <tbody>
             {loading && (
               <tr>
-                <td colSpan="5" className="py-4 text-center">Loading...</td>
+                <td colSpan="6" className="py-4 text-center">Loading...</td>
               </tr>
             )}
             {error && (
               <tr>
-                <td colSpan="5" className="py-4 text-center text-red-500">{error}</td>
+                <td colSpan="6" className="py-4 text-center text-red-500">{error}</td>
               </tr>
             )}
             {!loading && !error && users.map((user) => (
               <tr key={user._id} className="hover:bg-green-50 border-b border-green-200">
-                <td className="py-4 px-4 whitespace-nowrap border-r border-green-200" data-label="Profile">
+                <td className="py-2 px-3 md:py-4 md:px-4 whitespace-nowrap border-r border-green-200" data-label="Profile">
                   <div className="flex items-center">
                     <div className="mr-3">
-                      <div className="rounded-full bg-gray-300 p-2">
-                        <FaUserCircle className="text-gray-600" />
-                      </div>
+                      <img
+                        src={user.photo || 'default-photo-url'}
+                        alt="User Photo"
+                        className="rounded-full w-10 h-10 object-cover"
+                      />
                     </div>
-                    <span className="font-medium text-gray-700">{user.name}</span>
+                    {/* <span className="font-medium text-gray-700">{user.name}</span> */}
                   </div>
                 </td>
-                <td className="py-4 px-4 text-gray-600 border-r border-green-200" data-label="Email">{user.email}</td>
-                <td className="py-4 px-4 text-gray-600 border-r border-green-200" data-label="Phone">{user.phone}</td>
-                <td className="py-4 px-4 text-gray-600 border-r border-green-200" data-label="Address">{user.address}</td>
-                <td className="py-4 px-4 text-center" data-label="Actions">
+                <td className="py-2 px-3 md:py-4 md:px-4 text-gray-600 border-r border-green-200" data-label="Name">{user.name}</td>
+                <td className="py-2 px-3 md:py-4 md:px-4 text-gray-600 border-r border-green-200" data-label="Email">{user.email}</td>
+                <td className="py-2 px-3 md:py-4 md:px-4 text-gray-600 border-r border-green-200" data-label="Phone">{user.phone}</td>
+                <td className="py-2 px-3 md:py-4 md:px-4 text-gray-600 border-r border-green-200" data-label="Address">{user.address}</td>
+                <td className="py-2 px-3 md:py-4 md:px-4 text-center" data-label="Actions">
                   <div className="flex justify-center items-center space-x-2">
-                    <button onClick={() => handleEdit(user)} className="text-green-500 hover:text-green-700 transition duration-300">
-                      <FaEdit />
+                    <button
+                      onClick={() => handleEdit(user)}
+                      className="text-green-500 hover:text-green-700 transition duration-300"
+                    >
+                      <FaEye />
                     </button>
-                    <button onClick={() => handleDelete(user._id)} className="text-red-500 hover:text-red-700 transition duration-300">
+                    <button
+                      onClick={() => openDeleteModal(user._id)}
+                      className="text-green-500 hover:text-red-700 transition duration-300"
+                    >
                       <FaTrash />
                     </button>
                   </div>
