@@ -15,6 +15,14 @@ const packageSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
+    duration: {
+      type: String,
+      required: true,
+    },
+    caption: {
+      type: String,
+      required: true,
+    },
     desc: {
       type: String,
       required: true,

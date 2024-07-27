@@ -15,6 +15,17 @@ const tourValidator = Joi.object({
   featured: Joi.boolean(),
 });
 
+const tourPackageValidator = Joi.object({
+  title: Joi.string().required().pattern(new RegExp("^[a-zA-Z]")).trim(),
+  price: Joi.number(),
+  photo: Joi.string().required(),
+  duration: Joi.string().required(),
+  caption: Joi.string().required(),
+  desc: Joi.string().required(),
+  maxGroupSize: Joi.number().integer().min(1).required(),
+  reviews: Joi.array(),
+});
+
 const registerValidator = Joi.object({
   username: Joi.string()
     .required()
@@ -80,6 +91,7 @@ const reviewValidator = Joi.object({
 
 module.exports = {
   tourValidator,
+  tourPackageValidator,
   registerValidator,
   bookingValidator,
   reviewValidator,

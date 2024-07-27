@@ -7,7 +7,7 @@ const {
 } = require("../controllers/userController.js");
 const router = express.Router();
 
-// const { verifyAdmin, verifyUser } = require("../utils/verifyToken.js");
+const { verifyAdmin, verifyUser } = require("../utils/verifyToken.js");
 
 // update User
 router.patch("/:id", verifyUser, updateUser);

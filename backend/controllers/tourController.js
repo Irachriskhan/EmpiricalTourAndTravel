@@ -16,7 +16,7 @@ const createTour = asyncWrapper(async (req, res, next) => {
   const tourTitle = await Tour.findOne({ title: title });
   if (tourTitle)
     return next(
-      createCustomError(`Tour with title "${title}" already  exist`, 422)
+      createCustomError(`Tour with title "${title}" already  exist`, 401)
     );
 
   const newTour = await Tour.create(input_data);
