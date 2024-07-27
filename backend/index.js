@@ -14,6 +14,7 @@ const authRoute = require("./routes/auth");
 const reviewRoute = require("./routes/reviews");
 const bookingRoute = require("./routes/bookings");
 const subscriptionRoute = require("./routes/subscription");
+const contactusRoute = require("./routes/contactus");
 
 dotenv.config();
 const app = express();
@@ -37,6 +38,7 @@ app.use("/api/v1/users", userRoute);
 app.use("/api/v1/review", reviewRoute);
 app.use("/api/v1/booking", bookingRoute);
 app.use("/api/v1/subscribe", subscriptionRoute);
+app.use("/api/v1/contactus", contactusRoute);
 
 app.use(notFound);
 app.use(errorHandlerMiddleware);
