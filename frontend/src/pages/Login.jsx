@@ -113,21 +113,19 @@
 import { useState, useContext } from 'react';
 import { Container, Row, Col, Form, FormGroup, Button } from 'reactstrap';
 import { Link, useNavigate } from 'react-router-dom';
-import '../styles/login.css';
-import loginImg from '../assets/images/login.png';
-import userIcon from '../assets/images/user.png';
-import { FaEye, FaEyeSlash } from 'react-icons/fa'; // Import the icons
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { AuthContext } from './../context/AuthContext';
 import axios from 'axios';
 import { BASE_URL } from './../utils/config';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import '../styles/login.css';
+import loginImg from '../assets/images/login.png';
+import userIcon from '../assets/images/user.png';
 
 const Login = () => {
-  const [credentials, setCredentials] = useState({
-    email: '',
-    password: '',
-  });
-   
-  const [showPassword, setShowPassword] = useState(false)
+  const [credentials, setCredentials] = useState({ email: '', password: '' });
+  const [showPassword, setShowPassword] = useState(false);
   const { dispatch } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -141,16 +139,16 @@ const Login = () => {
 
     try {
       const res = await axios.post(`${BASE_URL}/auth/login`, credentials);
-      console.log('Response data:', res.data);
-
       if (res.data && res.data.data && res.data.token && res.data.role) {
         dispatch({
           type: 'LOGIN_SUCCESS',
           payload: { user: res.data.data, token: res.data.token, role: res.data.role },
         });
-
+        toast.success('Login successful!');
         if (res.data.role === 'admin') {
           navigate('/admin');
+        } else if (res.data.role === 'user') {
+          navigate('/user');
         } else {
           navigate('/');
         }
@@ -158,16 +156,16 @@ const Login = () => {
         throw new Error('Invalid response data structure');
       }
     } catch (err) {
-      console.error('Login error:', err);
       const errorMessage = err.response?.data?.message || 'An error occurred during login';
-      alert(errorMessage);
+      toast.error(errorMessage);
       dispatch({ type: 'LOGIN_FAILURE', payload: errorMessage });
     }
   };
 
-  const toggleShowPassword = () =>{
+  const toggleShowPassword = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
   };
+
   return (
     <section>
       <Container>
@@ -175,17 +173,15 @@ const Login = () => {
           <Col lg="8" className="m-auto">
             <div className="login__container d-flex justify-content-between">
               <div className="login__img">
-                <img src={loginImg} alt="" />
+                <img src={loginImg} alt="Login" />
               </div>
-
               <div className="login__form">
                 <div className="user">
-                  <img src={userIcon} alt="" />
+                  <img src={userIcon} alt="User" />
                 </div>
                 <h2>Login</h2>
-
                 <Form onSubmit={handleClick}>
-                  <FormGroup >
+                  <FormGroup>
                     <input
                       type="email"
                       placeholder="Email"
@@ -194,9 +190,8 @@ const Login = () => {
                       value={credentials.email}
                       onChange={handleChange}
                     />
-                  
-                    </FormGroup>
-                  <FormGroup className='position-relative'>
+                  </FormGroup>
+                  <FormGroup className="position-relative">
                     <input
                       type={showPassword ? "text" : "password"}
                       placeholder="Password"
@@ -205,12 +200,12 @@ const Login = () => {
                       value={credentials.password}
                       onChange={handleChange}
                     />
-                      <span
-                    onClick={toggleShowPassword}
-                    className='position-absolute'
-                    style={{ top:'50%', right: '10px', transform: 'translateY(-50%)', cursor: 'pointer'}}
-                  >
-                  {showPassword ? <FaEyeSlash /> : <FaEye/>}
+                    <span
+                      onClick={toggleShowPassword}
+                      className="position-absolute"
+                      style={{ top: '50%', right: '10px', transform: 'translateY(-50%)', cursor: 'pointer' }}
+                    >
+                      {showPassword ? <FaEyeSlash /> : <FaEye />}
                     </span>
                   </FormGroup>
                   <Button className="btn secondary__btn auth__btn" type="submit">
@@ -228,11 +223,14 @@ const Login = () => {
           </Col>
         </Row>
       </Container>
+      <ToastContainer />
     </section>
   );
 };
 
 export default Login;
+
+
 
 
 
