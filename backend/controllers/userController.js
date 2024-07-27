@@ -50,9 +50,16 @@ const updateUser = asyncWrapper(async (req, res, next) => {
 });
 
 // delete User
-const deleteUser = asyncWrapper(async (req, res, next) => {
+const archiveUser = asyncWrapper(async (req, res, next) => {
+  const { status } = req.body;
   const id = req.params.id;
-  const user = await User.findByIdAndDelete(id);
+  const user = await User.findByIdAndUpdate(
+    id,
+    {
+      $set: status,
+    },
+    { new: true }
+  );
 
   if (!user) return next(createCustomError(`No user with id ${id} `, 404));
 
@@ -95,7 +102,7 @@ const getAllUser = asyncWrapper(async (req, res) => {
 });
 
 module.exports = {
-  deleteUser,
+  archiveUser,
   getSingleUser,
   getAllUser,
   updateUser,

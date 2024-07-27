@@ -2,30 +2,22 @@ const express = require("express");
 const {
   createTour,
   updateTour,
-  deleteTour,
+  archiveTour,
   getSingleTour,
   getAllTour,
   getTourBySearch,
   getFeaturedTour,
   getTourCount,
 } = require("../controllers/tourController.js");
-// const { verifyAdmin } = require("../utils/verifyToken.js");
+const { verifyAdmin } = require("../utils/verifyToken.js");
 
 const router = express.Router();
 
 // create new tour
-router.post("/admin/",  createTour);//verifyAdmin,
-
-// update tour
-router.put("/admin/:id", updateTour);// verifyAdmin,
-
-// delete tour
-router.delete("/admin/:id",  deleteTour);//verifyAdmin,
-
-// get single tour
+router.post("/admin", verifyAdmin, createTour);
+router.put("/admin/:id", verifyAdmin, updateTour);
+router.patch("/admin/:id/delete", verifyAdmin, archiveTour);
 router.get("/:id", getSingleTour);
-
-// get all tours
 router.get("/", getAllTour);
 
 // get tour by search
