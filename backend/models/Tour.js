@@ -15,10 +15,6 @@ const tourSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    distance: {
-      type: Number,
-      required: true,
-    },
     photo: {
       type: String,
       required: true,
@@ -46,6 +42,10 @@ const tourSchema = new mongoose.Schema(
     featured: {
       type: Boolean,
       default: false,
+    },
+    status: {
+      type: String,
+      default: "Active",
     },
   },
   { timestamps: true }

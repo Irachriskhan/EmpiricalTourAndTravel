@@ -1,59 +1,73 @@
 const Booking = require("../models/Bookings.js");
+const asyncWrapper = require("../middleware/async.js");
+const { createCustomError } = require("../errors/custom-errors");
+
+const { bookingValidator } = require("../utils/validators/validators.js");
 
 // create new booking
-const createBooking = async (req, res) => {
-  const newBooking = new Booking(req.body);
-  try {
-    const savedBooking = await newBooking.save();
-    res.status(200).json({
-      success: true,
-      message: "Your tour is booked",
-      data: savedBooking,
-    });
-  } catch (err) {
-    res.status(500).json({
-      success: false,
-      message: "internal server error",
-    });
+const createBooking = asyncWrapper(async (req, res, next) => {
+  const input_data = req.body;
+  const { error } = bookingValidator.validate(input_data);
+
+  if (error) {
+    return res.send({ success: false, error: error.details[0].message });
   }
-};
+
+  const newBooking = new Booking(input_data);
+  const savedBooking = await newBooking.save();
+
+  if (!savedBooking) return next(createCustomError(`Cannot book a tour!`, 404));
+
+  res.status(200).json({
+    success: true,
+    message: "Your tour is booked",
+    data: savedBooking,
+  });
+});
 
 // get single booking
-const getBooking = async (req, res) => {
+const getBooking = asyncWrapper(async (req, res, next) => {
   const id = req.params.id;
+  const booking = await Booking.findById(id);
 
-  try {
-    const book = await Booking.findById(id);
+  if (!booking)
+    return next(createCustomError(`No Booked tour with id ${id}`, 404));
 
-    res.status(200).json({
-      success: true,
-      massage: "successful",
-      data: book,
-    });
-  } catch (err) {
-    res.status(404).json({
-      success: false,
-      massage: "not found",
-    });
-  }
-};
+  res.status(200).json({
+    success: true,
+    message: "successful",
+    data: booking,
+  });
+});
 
 // get all booking
-const getAllBooking = async (req, res) => {
-  try {
-    const books = await Booking.find();
+const getAllBooking = asyncWrapper(async (req, res, next) => {
+  const booking = await Booking.find({});
 
-    res.status(200).json({
-      success: true,
-      massage: "successful",
-      data: books,
-    });
-  } catch (err) {
-    res.status(500).json({
-      success: false,
-      massage: "internal server error",
-    });
-  }
+  if (!booking) return next(createCustomError(`No tours Booked found!`, 404));
+
+  res.status(200).json({
+    success: true,
+    message: "successful",
+    data: booking,
+  });
+});
+
+const getBookingByCustomer = asyncWrapper(async (req, res, next) => {
+  const userID = req.params.userId;
+  const bookings = await Booking.find({ userID });
+
+  if (!bookings) return next(createCustomError("User has no booking", 404));
+  res.status(200).json({
+    success: true,
+    message: "successful",
+    bookinNb: bookings.length,
+    data: bookings,
+  });
+});
+module.exports = {
+  createBooking,
+  getBooking,
+  getAllBooking,
+  getBookingByCustomer,
 };
-
-module.exports = { createBooking, getBooking, getAllBooking };

@@ -3,12 +3,17 @@ const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
+const connectDB = require("./db/connect");
+const notFound = require("./middleware/not-found");
+const errorHandlerMiddleware = require("./middleware/error-handler");
 
-const tourRoute = require("./routes/tours.js");
-const userRoute = require("./routes/users.js");
-const authRoute = require("./routes/auth.js");
-const reviewRoute = require("./routes/reviews.js");
-const bookingRoute = require("./routes/bookings.js");
+const tourRoute = require("./routes/tours");
+const tourPackageRoute = require("./routes/tour_packages");
+const userRoute = require("./routes/users");
+const authRoute = require("./routes/auth");
+const reviewRoute = require("./routes/reviews");
+const bookingRoute = require("./routes/bookings");
+const subscriptionRoute = require("./routes/subscription");
 
 dotenv.config();
 const app = express();
@@ -20,32 +25,30 @@ const corsOptions = {
 
 //database connection
 mongoose.set("strictQuery", false);
-const connect = async () => {
-  try {
-    await mongoose.connect(process.env.MONGO_URI, {
-      readPreference: "primary",
-      authMechanism: "SCRAM",
-      readPreferenceTags: { dc: "ny", rack: "r1" },
-      retryWrites: true,
-      retryReads: true,
-    });
 
-    console.log("MongoDB database connected");
-  } catch (err) {
-    console.log("MongoDB database connection failed");
-  }
-};
 // middleware
 app.use(express.json());
 app.use(cors(corsOptions));
 app.use(cookieParser());
 app.use("/api/v1/auth", authRoute);
 app.use("/api/v1/tours", tourRoute);
+app.use("/api/v1/tour-packages", tourPackageRoute);
 app.use("/api/v1/users", userRoute);
 app.use("/api/v1/review", reviewRoute);
 app.use("/api/v1/booking", bookingRoute);
+app.use("/api/v1/subscribe", subscriptionRoute);
 
-app.listen(port, () => {
-  connect();
-  console.log("server listening on port", port);
-});
+app.use(notFound);
+app.use(errorHandlerMiddleware);
+
+const start = async (req, res, next) => {
+  await connectDB(process.env.MONGO_URI);
+  app.listen(port, () => {
+    console.log(`
+      EmpiricalTourAndTravel app is accessible on  http://localhost:${port}
+      or https://empiricaltourandtravel.onrender.com
+      `);
+  });
+};
+
+start();
