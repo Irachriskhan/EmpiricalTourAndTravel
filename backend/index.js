@@ -1,6 +1,7 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
+const fileUpload = require("express-fileupload");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const connectDB = require("./db/connect");
@@ -30,6 +31,7 @@ mongoose.set("strictQuery", false);
 app.use(express.json());
 app.use(cors(corsOptions));
 app.use(cookieParser());
+app.use(fileUpload());
 app.use("/api/v1/auth", authRoute);
 app.use("/api/v1/tours", tourRoute);
 app.use("/api/v1/tour-packages", tourPackageRoute);

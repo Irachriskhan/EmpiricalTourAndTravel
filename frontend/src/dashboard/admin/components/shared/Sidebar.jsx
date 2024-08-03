@@ -64,7 +64,7 @@ export default function Sidebar() {
       )}
       {!isSidebarVisible && (
         <button
-          className="fixed top-4 right-4 bg-green-500 text-white p-2 rounded-full shadow-lg"
+          className="fixed top-8 left-4 bg-green-500 text-white p-2 rounded-full shadow-lg"
           onClick={toggleSidebar}
         >
           <AiOutlineMenu />

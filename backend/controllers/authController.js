@@ -92,8 +92,6 @@ const login = asyncWrapper(async (req, res, next) => {
 
 const resetPassword = asyncWrapper(async (req, res, next) => {
   const { email } = req.body;
-  // const myEmail = "christophetestsmycodes@gmail.com";
-  // const myPassword = "23Ckhan@";
   const user = await User.findOne({ email });
 
   if (!user) return createCustomError(`User not found`, 404);
@@ -140,27 +138,6 @@ const resetPassword = asyncWrapper(async (req, res, next) => {
       });
     }
   });
-
-  // const subject = "Password Reset from Empirical Tour and Travel Company";
-  // const body = `You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n
-  // Please click on the following link, or paste this into your browser to complete the process:\n\n
-  // ${resetUrl}\n\n
-  // If you did not request this, please ignore this email and your password will remain unchanged.\n`;
-
-  // console.log(mailOptions(user.email, subject, body));
-  // transporter.sendMail(
-  //   mailOptions(user.email, subject, body),
-  //   function (err, data) {
-  //     if (err) {
-  //       res.status(402).json({ Error: err });
-  //     } else {
-  //       res.status(200).send({
-  //         message: "Password reset email sent",
-  //         url: resetUrl,
-  //       });
-  //     }
-  //   }
-  // );
 });
 
 const updatePassword = asyncWrapper(async (req, res, next) => {
