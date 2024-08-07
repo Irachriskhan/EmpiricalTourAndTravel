@@ -78,6 +78,32 @@ const reviewValidator = Joi.object({
   rating: Joi.number().integer().required(),
 });
 
+const contactusValidator = Joi.object({
+  name: Joi.string()
+    .required()
+    .pattern(new RegExp("^[a-zA-Z]"))
+    .min(6)
+    .max(50)
+    .trim(),
+  email: Joi.string()
+    .required()
+    .pattern(new RegExp("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$"))
+    .email()
+    .trim(),
+  subject: Joi.string()
+    .required()
+    .pattern(new RegExp("^[a-zA-Z]"))
+    .min(6)
+    .max(80)
+    .trim(),
+  message: Joi.string()
+    .required()
+    .pattern(new RegExp("^[a-zA-Z0-9]"))
+    .min(50)
+    .max(400)
+    .trim(),
+});
+
 // const profileValidator = Joi.object({});
 // const tourPackageValidator = Joi.object({});
 
@@ -96,4 +122,6 @@ module.exports = {
   bookingValidator,
   reviewValidator,
   loginValidator,
+  contactusValidator,
+  // profileValidator,
 };

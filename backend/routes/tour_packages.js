@@ -12,7 +12,7 @@ const router = express.Router();
 
 router.route("/admin").post(verifyAdmin, addTourPackage);
 router.route("/admin/archive/:id").get(verifyAdmin, archiveTourPackage);
-router
+router 
   .route("/admin/:id")
   .patch(verifyAdmin, updateTourPackage)
   .delete(verifyAdmin, deleteTourPackage);
