@@ -62,34 +62,29 @@ import Register from "../pages/Register";
 import ForgotPassword from "../pages/ForgotPassword";  
 import SearchResultList from "../pages/SearchResultList";
 import ThankYou from "../pages/ThankYou";
-import Dashboard from "../dashboard/admin/pages/Dashboard";
-import AdminLayout from "../dashboard/admin/components/shared/AdminLayout";
-import UserLayout from "../dashboard/admin/components/UserPages/UserLayout";
-
-// Admin dashboard pages
-import Customers from "../dashboard/admin/components/AdminPages/Customers";
-import ToursPage from "../dashboard/admin/components/AdminPages/ToursPage/AllTours";
-import Bookings from "../dashboard/admin/components/AdminPages/Bookings";
-import Feedback from "../dashboard/admin/components/AdminPages/Feedback";
-import TourPackage from "../dashboard/admin/components/AdminPages/TourPackage";
-import AddTours from "../dashboard/admin/components/AdminPages/ToursPage/AddTours";
-import Messages from "../dashboard/admin/components/AdminPages/Messages";
+import UserLayout from "../dashboard/UserPages/UserLayout";
 
 // User dashboard pages
-import Profile from "../dashboard/admin/components/UserPages/Profile";
-import UserBookings from "../dashboard/admin/components/UserPages/UserBookings";
-import Notifications from "../dashboard/admin/components/UserPages/UserNotifications";
-import Chats from "../dashboard/admin/components/UserPages/Chats";
-import Settings from "../dashboard/admin/components/UserPages/Settings";
+import Profile from "../dashboard/UserPages/Profile";
+import UserBookings from "../dashboard/UserPages/UserBookings";
+import Notifications from "../dashboard/UserPages/UserNotifications";
+import Chats from "../dashboard/UserPages/Chats";
+import Settings from "../dashboard/UserPages/Settings";
+
+// Admin dashboard pages
+import AdminLayout from "../dashboard/admin/Main Layout ";
+import AdminDashboard from "../dashboard/admin/Dashboard Component";
+import Customers from "../dashboard/admin/adminPages/Customer";
+import Bookings from "../dashboard/admin/adminPages/Bookings";
+import ToursAdmin from "../dashboard/admin/adminPages/ToursAdmin";
 
 const Routers = () => {
   return (
     <Routes>
       <Route path="/" element={<Navigate to="/home" />} />
       <Route path="/home" element={<Home />} />
-      <Route path="/tours" element={<Tours />} />
       <Route path="/about" element={<About />} />
-      <Route path="/Contact" element={<Contact/>}/>
+      <Route path="/Contact" element={<Contact />} />
       <Route path="/tours/:id" element={<TourDetails />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
@@ -97,23 +92,22 @@ const Routers = () => {
       <Route path="/thank-you" element={<ThankYou />} />
       <Route path="/tours/search" element={<SearchResultList />} />
 
-      <Route path="/admin" element={<AdminLayout />}>
-        <Route index element={<Dashboard />} />
-        <Route path="customers" element={<Customers />} />
-        <Route path="tourspage/alltours" element={<ToursPage />} />
-        <Route path="bookings" element={<Bookings />} />
-        <Route path="feedback" element={<Feedback />} />
-        <Route path="tourpackage" element={<TourPackage />} />
-        <Route path="messages" element={<Messages />} />
-        <Route path="tourspage/addtours" element={<AddTours />} />
-      </Route>
-
+      {/* User dashboard routes */}
       <Route path="/user" element={<UserLayout />}>
         <Route path="profile" element={<Profile />} />
         <Route path="bookings" element={<UserBookings />} />
-         <Route path="notifications" element={<Notifications />} />
+        <Route path="notifications" element={<Notifications />} />
         <Route path="chats" element={<Chats />} />
-        <Route path="settings" element={<Settings />} /> 
+        <Route path="settings" element={<Settings />} />
+      </Route>
+
+      {/* Admin dashboard routes */}
+      <Route path="/admin" element={<AdminLayout />}>
+      <Route path="toursadmin" element={<ToursAdmin/>}></Route>
+        <Route path="dashboard" element={<AdminDashboard />} />
+        <Route path="tours" element={<Tours />} />
+        <Route path="customers" element={<Customers />} />
+        <Route path="bookings" element={<Bookings />} />
       </Route>
     </Routes>
   );
